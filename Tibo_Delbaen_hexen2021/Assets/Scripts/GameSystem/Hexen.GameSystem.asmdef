@@ -1,0 +1,17 @@
+{
+    "name": "Hexen.GameSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5c25256331f99e04fb5dd6c015c3d949",
+        ""
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
