@@ -18,38 +18,38 @@ namespace DAE.GameSystem
         [SerializeField]
         private float _tileDimension = 1;
 
-        public (int x, int y) ToGridPostion(Grid<Position> grid, Transform parent, Vector3 worldPosition)
-        {
-            var relativePosition = worldPosition - parent.position;
+        //public (int x, int y) ToGridPostion(Grid<Position> grid, Transform parent, Vector3 worldPosition)
+        //{
+        //    var relativePosition = worldPosition - parent.position;
 
-            var scaledRelativePosition = relativePosition / _tileDimension;
+        //    var scaledRelativePosition = relativePosition / _tileDimension;
 
-            var scaledBoardOffset = new Vector3(grid.Columns / 2.0f, 0, grid.Rows / 2.0f);
-            scaledRelativePosition += scaledBoardOffset;
+        //    var scaledBoardOffset = new Vector3(grid.Columns / 2.0f, 0, grid.Rows / 2.0f);
+        //    scaledRelativePosition += scaledBoardOffset;
 
-            var scaledHalfTileOffset = new Vector3(0.5f, 0, 0.5f);
-            scaledRelativePosition -= scaledHalfTileOffset;
+        //    var scaledHalfTileOffset = new Vector3(0.5f, 0, 0.5f);
+        //    scaledRelativePosition -= scaledHalfTileOffset;
 
-            var x = (int)scaledRelativePosition.x;
-            var y = (int)scaledRelativePosition.z;
+        //    var x = (int)scaledRelativePosition.x;
+        //    var y = (int)scaledRelativePosition.z;
 
-            return (x, y);
-        }
+        //    return (x, y);
+        //}
 
-        public Vector3 ToWorldPosition(Grid<Position> grid, Transform parent, int x, int y)
-        {
-            var scaledRelativePosition = new Vector3(x, 0, y);
+        //public Vector3 ToWorldPosition(Grid<Position> grid, Transform parent, int x, int y)
+        //{
+        //    var scaledRelativePosition = new Vector3(x, 0, y);
 
-            var scaledHalfTileOffset = new Vector3(0.5f, 0, 0.5f);
-            scaledRelativePosition += scaledHalfTileOffset;
+        //    var scaledHalfTileOffset = new Vector3(0.5f, 0, 0.5f);
+        //    scaledRelativePosition += scaledHalfTileOffset;
 
-            var scaledBoardOffset = new Vector3(grid.Columns / 2.0f, 0, grid.Rows / 2.0f);
-            scaledRelativePosition -= scaledBoardOffset;
+        //    var scaledBoardOffset = new Vector3(grid.Columns / 2.0f, 0, grid.Rows / 2.0f);
+        //    scaledRelativePosition -= scaledBoardOffset;
 
-            var relativePosition = scaledRelativePosition * _tileDimension;
-            var worldPosition = relativePosition + parent.position;
+        //    var relativePosition = scaledRelativePosition * _tileDimension;
+        //    var worldPosition = relativePosition + parent.position;
 
-            return worldPosition;
-        }
+        //    return worldPosition;
+        //}
     }
 }

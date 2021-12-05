@@ -29,7 +29,7 @@ namespace Hexen.BoardSystem
 
 
         //public bool TryGetCoordinateOf(TPosition position, out (int x, int y) coordinate)
-          //  => _positions.TryGetKey(position, out coordinate);
+          //   => _positions.TryGetKey(position, out coordinate);
 
         public void Register(int x, int y, TPosition position)
         {
