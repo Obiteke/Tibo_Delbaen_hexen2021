@@ -21,7 +21,7 @@ namespace Hexen.BoardSystem
             Columns = columns;
         }
 
-        private MultiValueDictionary<(int x, int y), TPosition> _positions = new MultiValueDictionary<(int, int), TPosition>();
+        private MultiValueDictionary<(float q, float r, float s), TPosition> _positions = new MultiValueDictionary<(float, float, float), TPosition>();
         
 
         //public bool TryGetPositionAt(int x, int y, out TPosition position)

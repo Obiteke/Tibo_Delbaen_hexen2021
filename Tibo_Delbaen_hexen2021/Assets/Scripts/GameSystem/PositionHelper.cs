@@ -18,7 +18,7 @@ namespace DAE.GameSystem
         [SerializeField]
         private float _tileDimension = 1;
 
-        public (int x, int y) ToHexGridPostion(Grid<Position> grid, Transform parent, Vector3 worldPosition)
+        public (int q, int r, int s) ToHexGridPostion(Grid<Position> grid, Transform parent, Vector3 worldPosition)
         {
             var relativePosition = worldPosition - parent.position;
 
@@ -30,10 +30,10 @@ namespace DAE.GameSystem
             var scaledHalfTileOffset = new Vector3(0.5f, 0, 0.5f);
             scaledRelativePosition -= scaledHalfTileOffset;
 
-            var x = (int)scaledRelativePosition.x;
-            var y = (int)scaledRelativePosition.z;
+            var r = (int)scaledRelativePosition.x;
+            var q = (int)scaledRelativePosition.z;
 
-            return (x, y);
+            return (q, r, s);
         }
 
         public Vector3 ToWorldPosition(Grid<Position> grid, Transform parent, int x, int y)
