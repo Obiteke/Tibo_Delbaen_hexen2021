@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 411834262344923682}
-  - component: {fileID: 7326279705651263583}
+  - component: {fileID: 693714409468866363}
+  - component: {fileID: 7196131311017820111}
   m_Layer: 0
   m_Name: Tile Base
   m_TagString: Untagged
@@ -32,8 +33,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &7326279705651263583
-MeshCollider:
+--- !u!114 &693714409468866363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225716683720610355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765d0e760c0c38a4895a487b3092f1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  _loop: {fileID: 0}
+--- !u!65 &7196131311017820111
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -42,10 +62,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2534964839176971238, guid: 2dc3f8483144bdc428c3f8280c1d4e01, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.6, y: 0.47, z: 2.4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5352550979378841599
 PrefabInstance:
   m_ObjectHideFlags: 0

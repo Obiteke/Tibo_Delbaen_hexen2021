@@ -1,10 +1,12 @@
-using DAE.GameSystem;
+using Hexen.PositionSystem;
+using Hexen.GameSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+
 
 public class Tile : MonoBehaviour, IPointerClickHandler
 {
@@ -14,8 +16,8 @@ public class Tile : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private UnityEvent OnDeactivate;
 
-    //[SerializeField]
-    //private GameLoop _loop;
+    [SerializeField]
+    private GameLoop _loop;
 
     private Position _model;
 
@@ -52,6 +54,6 @@ public class Tile : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //_loop.DebugPosition(this);
+        _loop.DebugPosition(this);
     }
 }

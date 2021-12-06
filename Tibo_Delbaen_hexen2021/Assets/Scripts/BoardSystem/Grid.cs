@@ -11,36 +11,27 @@ namespace Hexen.BoardSystem
     public class Grid<TPosition>
     {
 
-        public int Rows { get; }
+        public int Radius { get; }
 
-        public int Columns { get; }
-
-        public Grid(int rows, int columns)
+        public Grid(int radius)
         {
-            Rows = rows;
-            Columns = columns;
+            Radius = radius;
         }
 
         private MultiValueDictionary<(float q, float r, float s), TPosition> _positions = new MultiValueDictionary<(float, float, float), TPosition>();
         
 
-        //public bool TryGetPositionAt(int x, int y, out TPosition position)
-         //   => _positions.TryGetValue((x, y), out position);
 
-
-        //public bool TryGetCoordinateOf(TPosition position, out (int x, int y) coordinate)
-          //   => _positions.TryGetKey(position, out coordinate);
-
-        public void Register(int x, int y, TPosition position)
+        public void Register(float q, float r, float s, TPosition position)
         {
-
-#if UNITY_EDITOR
-            if (x < 0 || x >= Columns)
-                throw new ArgumentException(nameof(x));
-
-            if (y < 0 || y >= Rows)
-                throw new ArgumentException(nameof(y));
-#endif
+            _positions.Add((q, r, s), position);
+//#if UNITY_EDITOR
+//            if (x < 0 || x >= Columns)
+//                throw new ArgumentException(nameof(x));
+//
+//            if (y < 0 || y >= Rows)
+//                throw new ArgumentException(nameof(y));
+//#endif
 
             //_positions.Add((x, y), position);
         }

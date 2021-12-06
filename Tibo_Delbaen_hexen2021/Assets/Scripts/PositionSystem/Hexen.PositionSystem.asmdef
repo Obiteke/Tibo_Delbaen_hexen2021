@@ -1,7 +1,9 @@
 {
-    "name": "DAE.BoardSystem",
+    "name": "Hexen.PositionSystem",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:1943514f0a2b1ac40b8ad9413a8075bc"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
