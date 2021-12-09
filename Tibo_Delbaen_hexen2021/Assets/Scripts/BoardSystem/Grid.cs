@@ -25,15 +25,6 @@ namespace Hexen.BoardSystem
         public void Register(float q, float r, float s, TPosition position)
         {
             _positions.Add((q, r, s), position);
-//#if UNITY_EDITOR
-//            if (x < 0 || x >= Columns)
-//                throw new ArgumentException(nameof(x));
-//
-//            if (y < 0 || y >= Rows)
-//                throw new ArgumentException(nameof(y));
-//#endif
-
-            //_positions.Add((x, y), position);
         }
     }
 }

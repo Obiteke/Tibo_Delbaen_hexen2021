@@ -3,6 +3,7 @@ using Hexen.BoardSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Hexen.GameSystem
 {
@@ -13,34 +14,55 @@ namespace Hexen.GameSystem
 
         private void OnValidate()
         {
-            if (_tileDimension <= 0)
-                _tileDimension = 1;
+            //if (_diameter <= 0)
+            //    _diameter = 1;
         }
 
-        [SerializeField]
-        private float _tileDimension = 1;
 
-        public (int q, int r, int s) ToHexGridPostion(Grid<Position> grid, Transform parent, Vector3 worldPosition)
+        public float [] PixelToHexPoint(float x, float z, float height)
         {
-            var relativePosition = worldPosition - parent.position;
+            var q = (Mathf.Sqrt(3) * x + Mathf.Sqrt(3) / 2 * z) * height/2;
+            var r = (3/2 * z) * height/2;
+            var s = AxialToCube(q, r);
 
-            var scaledRelativePosition = relativePosition / _tileDimension;
+            return CubeRound(q, r, s);
+        }
+        //public static float[] PixelToPointyHex(float x, float z, float radius)
+        //{
+        //    float _sqr = Mathf.Sqrt(3f);
+        //    var hex = new float[] { (_sqr / 3f * x - 0.333333f * z) / radius, 0.666666f * z / radius };
+        //    float[] cube = AxialToCube(hex[0], hex[1]);
+        //    float[] rounded = CubeRound(cube[0], cube[1], cube[2]);
+        //    return rounded;
+        //    //float[] axial = CubeToAxial(rounded[0], rounded[1], rounded[2]);
+        //    //return axial;
+        //}
 
-            var q = (int)scaledRelativePosition.x;
-            var r = (int)scaledRelativePosition.z;
+        private float AxialToCube(float q, float r)
+        {
             var s = -q - r;
-
-            return (q, r, s);
+            return s;
         }
 
-        public Vector3 ToWorldPosition(Grid<Position> grid, Transform parent, int x, int y)
+        public float[] CubeRound(float x, float y, float z)
         {
-            var scaledRelativePosition = new Vector3(x, 0, y);
+            var q = Mathf.Round(x);
+            var r = Mathf.Round(y);
+            var s = Mathf.Round(z);
 
-            var relativePosition = scaledRelativePosition * _tileDimension;
-            var worldPosition = relativePosition + parent.position;
+            var q_diff = Mathf.Abs(q - x);
+            var r_diff = Mathf.Abs(r - y);
+            var s_diff = Mathf.Abs(s - z);
 
-            return worldPosition;
+            if (q_diff > r_diff && q_diff > s_diff)
+                q = -r - s;
+            else if (r_diff > s_diff)
+                r = -q - s;
+            else
+                s = -q - r;
+
+            return new float[] { q, r, s};
         }
+        
     }
 }

@@ -12,8 +12,9 @@ namespace Hexen.GameSystem
 
         internal void DebugPosition(Tile tile)
         {
-            var (q, r, s) = _positionHelper.ToHexGridPostion(_grid, _boardParent, tile.transform.position);
-            Debug.Log($"Value of Tile {tile.name} is Q: {q} and R: {r} and S: {s}");
+
+            //var (q, r, s) = _positionHelper.ToHexGridPostion(_grid, _boardParent, tile.transform.position);
+            //Debug.Log($"Value of Tile {tile.name} is Q: {q} and R: {r} and S: {s}");
         }
 
         [SerializeField]
@@ -69,12 +70,12 @@ namespace Hexen.GameSystem
             {
                 var position = new Position();
                 tile.Model = position;
+                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 3f);
+                //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
+                
+                grid.Register(hexList[0], hexList[1], hexList[2], position);
         
-                var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
-        
-                grid.Register(q, r, s, position);
-        
-                tile.gameObject.name = $"Tile ({q},{r},{s})";
+                tile.gameObject.name = $"Tile ({hexList[0]},{hexList[1]},{hexList[2]})";
             }
         }
 
