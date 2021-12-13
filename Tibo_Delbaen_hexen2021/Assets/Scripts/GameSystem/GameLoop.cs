@@ -75,7 +75,7 @@ namespace Hexen.GameSystem
             {
                 var position = new Position();
                 tile.Model = position;
-                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.5f);
+                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.577f);
                 //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
                 
                 grid.Register(hexList[0], hexList[1], hexList[2], position);
