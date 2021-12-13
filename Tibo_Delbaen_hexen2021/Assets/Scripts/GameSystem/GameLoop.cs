@@ -13,9 +13,8 @@ namespace Hexen.GameSystem
 
         internal void DebugPosition(Tile tile)
         {
-
-            //var (q, r, s) = _positionHelper.ToHexGridPostion(_grid, _boardParent, tile.transform.position);
-            //Debug.Log($"Value of Tile {tile.name} is Q: {q} and R: {r} and S: {s}");
+            float[] list = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 1f);
+            Debug.Log($"Value of Tile {tile.name} is Q: {list[0]} and R: {list[1]} and S: {list[2]}");
         }
 
         [SerializeField]
@@ -62,27 +61,7 @@ namespace Hexen.GameSystem
             //};
         }
 
-        //private void CreateBoard(Grid<Position> grid)
-        //{
-        //    var tiles = FindObjectsOfType<Tile>();
-        //    for (int x = -_gridSize; x < _gridSize; x++)
-        //    {
-        //        for (int y = -_gridSize; y < _gridSize; y++)
-        //        {
-        //            for (int z = -_gridSize; z < _gridSize; z++)
-        //            {
-        //                if (IsValidPosition(x, y, z))
-        //                {
-        //                    _tilwe
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-        private bool IsValidPosition(int x, int y, int z)
-        {
-            return x + y + z == 0;
-        }
+        
 
         //public void DeselectAll()
         //{
@@ -96,7 +75,7 @@ namespace Hexen.GameSystem
             {
                 var position = new Position();
                 tile.Model = position;
-                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 3f);
+                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.5f);
                 //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
                 
                 grid.Register(hexList[0], hexList[1], hexList[2], position);

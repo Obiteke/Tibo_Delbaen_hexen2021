@@ -43,7 +43,7 @@ namespace Hexen.GameSystem
             else
                 rz = -rx - ry;
 
-            return new float[] { rx, ry, rz};
+            return new float[3] { rx, ry, rz};
         }
         
     }
