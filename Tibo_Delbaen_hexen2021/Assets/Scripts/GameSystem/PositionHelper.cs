@@ -21,8 +21,8 @@ namespace Hexen.GameSystem
 
         public float [] PixelToHexPoint(float x, float z, float height)
         {
-            var q = (Mathf.Sqrt(3) * x + Mathf.Sqrt(3) / 2 * z) * height/2;
-            var r = (3/2 * z) * height/2;
+            var q = (Mathf.Sqrt(3)/3 * x - 1/ 3 * z) / height;
+            var r = (2/3 * z) / height;
             var s = AxialToCube(q, r);
 
             return CubeRound(q, r, s);
