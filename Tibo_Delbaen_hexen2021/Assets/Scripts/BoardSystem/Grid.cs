@@ -12,7 +12,7 @@ namespace Hexen.BoardSystem
     {
 
         public int Radius { get; }
-
+        
         public Grid(int radius)
         {
             Radius = radius;

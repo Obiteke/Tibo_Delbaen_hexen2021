@@ -1,5 +1,6 @@
 using Hexen.BoardSystem;
 using Hexen.PositionSystem;
+using System;
 using UnityEngine;
 
 namespace Hexen.GameSystem
@@ -22,12 +23,15 @@ namespace Hexen.GameSystem
 
         //private SelectionManager<Piece> _selectionManager;
         private Grid<Position> _grid;
+
+        [SerializeField]
+        private int _gridSize = 3;
         //private Board<Position, Piece> _board;
         //private MoveManager<Piece> _moveManager;
 
         public void Start()
         {
-            _grid = new Grid<Position>(3);
+            _grid = new Grid<Position>(_gridSize);
             ConnectGrid(_grid);
             //
             //_board = new Board<Position, Piece>();
@@ -56,6 +60,28 @@ namespace Hexen.GameSystem
             //        position.Deactivate();
             //    }
             //};
+        }
+
+        //private void CreateBoard(Grid<Position> grid)
+        //{
+        //    var tiles = FindObjectsOfType<Tile>();
+        //    for (int x = -_gridSize; x < _gridSize; x++)
+        //    {
+        //        for (int y = -_gridSize; y < _gridSize; y++)
+        //        {
+        //            for (int z = -_gridSize; z < _gridSize; z++)
+        //            {
+        //                if (IsValidPosition(x, y, z))
+        //                {
+        //                    _tilwe
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        private bool IsValidPosition(int x, int y, int z)
+        {
+            return x + y + z == 0;
         }
 
         //public void DeselectAll()
