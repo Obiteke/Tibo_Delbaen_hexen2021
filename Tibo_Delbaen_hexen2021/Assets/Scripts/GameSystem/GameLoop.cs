@@ -1,7 +1,10 @@
 using Hexen.BoardSystem;
 using Hexen.PositionSystem;
+using Hexen.CardSystem;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hexen.GameSystem
 {
@@ -23,6 +26,10 @@ namespace Hexen.GameSystem
         //private SelectionManager<Piece> _selectionManager;
         private Grid<Position> _grid;
 
+        //public Board<HexenPiece> Board { get; private set; }
+        public Deck<CardBase> Deck { get; private set; }
+        public Hand<CardBase> Hand { get; private set; }
+
         [SerializeField]
         private int _gridSize = 3;
         //private Board<Position, Piece> _board;
@@ -30,6 +37,8 @@ namespace Hexen.GameSystem
 
         public void Start()
         {
+            //CreateDeck();
+            Hand = Deck.DealHand(5);
             _grid = new Grid<Position>(_gridSize);
             ConnectGrid(_grid);
             //
@@ -61,7 +70,23 @@ namespace Hexen.GameSystem
             //};
         }
 
-        
+        //private void CreateDeck()
+        //{
+        //    Deck = new Deck<CardBase>();
+        //
+        //    Dictionary<string, CardBase> _cards = new Dictionary<string, CardBase>() {
+        //    { "Charge", new ChargeCard(Board) },
+        //    { "Push", new PushCard(Board) },
+        //    { "Swipe", new SwipeCard(Board) },
+        //    { "Teleport", new TeleportCard(Board) }
+        //};
+        //
+        //    for (int i = 0; i < _cards.Count; i++)
+        //    {
+        //        Deck.RegisterCard(_cards.Keys.ElementAt(i), _cards.Values.ElementAt(i));
+        //        //Debug.Log(_cards.Keys.ElementAt(i));
+        //    }
+        //}
 
         //public void DeselectAll()
         //{

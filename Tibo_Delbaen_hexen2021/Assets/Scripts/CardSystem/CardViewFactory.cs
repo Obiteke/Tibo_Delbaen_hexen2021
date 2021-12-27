@@ -34,7 +34,7 @@ namespace Hexen.CardSystem
 
             var cardView = Instantiate(_cardViews.ElementAt(num), transform);
             //Debug.Log(_cardViews.ElementAt(num) + " + " + transform);
-            //cardView.Model = card;
+            cardView.Model = card;
             cardView.DragArea = (RectTransform)Canvas.transform;
             cardView.name = $"Card ({card})";
             return cardView;

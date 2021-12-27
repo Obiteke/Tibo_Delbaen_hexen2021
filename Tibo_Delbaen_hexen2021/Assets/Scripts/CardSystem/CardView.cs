@@ -16,12 +16,18 @@ namespace Hexen.CardSystem
             get;
             internal set;
         }
+        public string Model
+        {
+            get;
+            internal set;
+        }
         private void DragCard()
         {
             _cardToDrag = new GameObject("DraggedCard");
 
             // Keep created card 
             _cardToDrag.transform.SetParent(DragArea, false);
+            Debug.Log(DragArea);
 
             // Add image component to dragged card gameobject
             Image component = _cardToDrag.AddComponent<Image>();
@@ -43,6 +49,11 @@ namespace Hexen.CardSystem
                 _cardTransform.position = vector3;
                 _cardTransform.rotation = DragArea.rotation;
             }
+        }
+        internal void Played()
+        {
+            Destroy(_cardToDrag);
+            Destroy(gameObject);
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
