@@ -2,8 +2,8 @@
     "name": "Hexen.GameSystem",
     "rootNamespace": "",
     "references": [
-        "GUID:1943514f0a2b1ac40b8ad9413a8075bc",
-        "GUID:32a2bc4edde02fc40b29e12b14822166"
+        "GUID:32a2bc4edde02fc40b29e12b14822166",
+        "GUID:1943514f0a2b1ac40b8ad9413a8075bc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
