@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace Hexen.CardSystem
 {
-    public class CardDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private GameObject _cardToDrag;
 
