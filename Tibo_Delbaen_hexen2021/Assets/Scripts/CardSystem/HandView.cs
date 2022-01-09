@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Hexen.CardSystem.Utils;
+using Hexen.CardSystem.Cards;
 
 namespace Hexen.CardSystem
 {

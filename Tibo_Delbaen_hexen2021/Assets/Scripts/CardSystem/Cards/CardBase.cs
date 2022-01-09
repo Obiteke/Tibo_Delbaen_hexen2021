@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hexen.BoardSystem;
 
-public class CardBase : MonoBehaviour
+namespace Hexen.CardSystem.Cards
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class CardBase
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //protected Board<HexenPiece> Board;
+        //
+        //public CardBase(Board<HexenPiece> board)
+        //{
+        //    Board = board;
+        //}
+        //
+        //public abstract void OnMouseReleased(Tile playerTile, Tile focusedTile);
+        //public abstract List<Tile> Tiles(Tile playerTile, Tile focusedTile);
     }
 }
