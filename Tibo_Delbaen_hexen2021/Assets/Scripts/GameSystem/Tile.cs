@@ -1,59 +1,59 @@
-
+using Hexen.PositionSystem;
+using Hexen.GameSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using Hexen.BoardSystem;
 
-namespace Hexen.GameSystem
+
+public class Tile : MonoBehaviour, IPointerClickHandler
 {
-    public class TileEventArgs : EventArgs
-    {
-        public Tile Tile { get; }
+    [SerializeField]
+    private UnityEvent OnActivate;
 
-        public TileEventArgs(Tile tile)
+    [SerializeField]
+    private UnityEvent OnDeactivate;
+
+    [SerializeField]
+    private GameLoop _loop;
+
+    private Position _model;
+
+    public Position Model
+    {
+        set
         {
-            Tile = tile;
+            if (_model != null)
+            {
+                _model.Activated -= PositionActivated;
+                _model.Deactivated -= PositionDeactivated;
+            }
+
+            _model = value;
+
+            if (_model != null)
+            {
+                _model.Activated += PositionActivated;
+                _model.Deactivated += PositionDeactivated;
+            }
+
+        }
+        get
+        {
+            return _model;
         }
     }
 
-    public class Tile : MonoBehaviour, IPointerClickHandler//, IPosition
+    private void PositionDeactivated(object sender, EventArgs e)
+        => OnDeactivate.Invoke();
+
+    private void PositionActivated(object sender, EventArgs e)
+        => OnActivate.Invoke();
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-
-        public event EventHandler<TileEventArgs> Clicked;
-
-        [SerializeField]
-        private UnityEvent OnActivate;
-
-        [SerializeField]
-        private UnityEvent OnDeactivate;
-
-        public bool Highlight
-        {
-            set
-            {
-                if (value)
-                    OnActivate.Invoke();
-                else
-                    OnDeactivate.Invoke();
-            }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            //FindObjectOfType<GameLoop>().Select(this);
-
-            //OnClick(new TileEventArgs(this));
-
-            //GameLoop.Instance.Select(this);
-        }
-
-        protected virtual void OnClick(TileEventArgs eventArgs)
-        {
-            var handler = Clicked;
-            handler?.Invoke(this, eventArgs);
-        }
+        _loop.DebugPosition(this);
     }
 }

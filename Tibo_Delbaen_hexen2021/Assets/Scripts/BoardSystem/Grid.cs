@@ -10,26 +10,21 @@ namespace Hexen.BoardSystem
 {
     public class Grid<TPosition>
     {
-        public Grid()
-        {
 
+        public int Radius { get; }
+        
+        public Grid(int radius)
+        {
+            Radius = radius;
         }
 
-        //private MultiValueDictionary<TPosition, (float q, float r, float s)> _positions 
-        //                = new MultiValueDictionary<TPosition ,(float q, float r, float s)>();
+        private MultiValueDictionary<(float q, float r, float s), TPosition> _positions = new MultiValueDictionary<(float, float, float), TPosition>();
+        
 
-        private BidirectionalDictionary<TPosition, (float q, float r, float s)> _positions
-                        = new BidirectionalDictionary<TPosition, (float q, float r, float s)>();
 
-        public bool TryGetPositionAt(float q, float r, float s, out TPosition position)
-            => _positions.TryGetKey((q, r, s), out position);
-
-        public bool TryGetCoordinateAt(TPosition position, out (float q, float r, float s) coordinate)
-             => _positions.TryGetValue(position, out coordinate);
-
-        public void Register(TPosition position ,float q, float r, float s)
+        public void Register(float q, float r, float s, TPosition position)
         {
-            _positions.Add(position, (q, r, s));
+            _positions.Add((q, r, s), position);
         }
     }
 }

@@ -45,14 +45,6 @@ namespace Hexen.GameSystem
 
             return new float[3] { rx, ry, rz};
         }
-        public static float Distance(float x1, float y1, float z1, float x2, float y2, float z2)
-        {
-            float x = Mathf.Abs(x1 - x2);
-            float y = Mathf.Abs(y1 - y2);
-            float z = Mathf.Abs(z1 - z2);
-
-            float _result = (x + y + z) / 2;
-            return _result;
-        }
+        
     }
 }
