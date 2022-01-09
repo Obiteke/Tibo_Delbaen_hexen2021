@@ -6,116 +6,154 @@ using UnityEngine;
 
 namespace Hexen.BoardSystem
 {
-    public class PiecePlacedEventArgs<TPiece, TPosition> : EventArgs
+    public class PiecePlacedEventArgs<TPiece> : EventArgs where TPiece : class, IPiece
     {
         public TPiece Piece { get; }
 
-        public TPosition AtPosition { get; }
-
-        public PiecePlacedEventArgs(TPiece piece, TPosition atPosition)
+        public PiecePlacedEventArgs(TPiece piece)
         {
             Piece = piece;
-            AtPosition = atPosition;
         }
     }
 
-    public class PieceMovedEventArgs<TPiece, TPosition>
+    public class Board<TPiece> where TPiece : class, IPiece
     {
-        public TPiece Piece { get; }
+        
+        private Grid<Position> _grid;
+        public event EventHandler<PiecePlacedEventArgs<TPiece>> PiecePlaced;
 
-        public TPosition FromPosition { get; }
+        //Dictionary<Position, Tile> _tiles = new Dictionary<Position, Tile>();
+        private BidirectionalDictionary<Position, Tile> _tiles
+                        = new BidirectionalDictionary<Position, Tile>();
 
-        public TPosition ToPosition { get; }
 
-        public PieceMovedEventArgs(TPiece piece, TPosition fromPosition, TPosition toPosition)
+        List<Tile> _keys = new List<Tile>();
+        List<TPiece> _values = new List<TPiece>();
+
+        public readonly int Radius;
+
+        public bool HexTiles = false;
+
+        //public List<Tile> Tiles => _tiles.Values.ToList();
+        //public List<TPiece> Enemies { get; } = new List<TPiece>();
+
+        public Board(int radius)
         {
-            Piece = piece;
-            FromPosition = fromPosition;
-            ToPosition = toPosition;
+            Radius = radius;
+
+            HexTiles = radius != -1;
+
+            _grid = new Grid<Position>();
+            //ConnectTile(_grid);
         }
-    }
+        
 
-    public class PieceTakenEventArgs<TPiece, TPosition>
-    {
-        public TPiece Piece { get; }
-        public TPosition FromPosition { get; }
-
-        public PieceTakenEventArgs(TPiece piece, TPosition fromPosition)
+        public Tile TileAt(Position position)
         {
-            Piece = piece;
-            FromPosition = fromPosition;
+            if (_tiles.TryGetValue(position, out var tile))
+                return tile;
+
+            return null;
         }
-    }
-
-    public class Board<TPiece, TPosition>
-    {
-        public event EventHandler<PiecePlacedEventArgs<TPiece, TPosition>> PiecePlaced;
-        public event EventHandler<PieceMovedEventArgs<TPiece, TPosition>> PieceMoved;
-        public event EventHandler<PieceTakenEventArgs<TPiece, TPosition>> PieceTaken;
-
-        private BidirectionalDictionary<TPiece, TPosition> _pieces
-            = new BidirectionalDictionary<TPiece, TPosition>();
-
-        public bool TryGetPiece(TPosition position, out TPiece piece)
-            => _pieces.TryGetKey(position, out piece);
-
-        public bool TryGetPosition(TPiece piece, out TPosition position)
-            => _pieces.TryGetValue(piece, out position);
-
-
-        public void Place(TPiece piece, TPosition position)
+        public TPiece PieceAt(Tile tile)
         {
-            if (_pieces.ContainsKey(piece))
+            var idx = _keys.IndexOf(tile);
+            if (idx == -1)
+                return default;
+
+            return _values[idx];
+        }
+        public Tile TileOf(TPiece piece)
+        {
+            var idx = _values.IndexOf(piece);
+            if (idx == -1)
+                return null;
+
+            return _keys[idx];
+        }
+
+        public TPiece Take(Tile fromTile)
+        {
+            var idx = _keys.IndexOf(fromTile);
+            if (idx == -1)
+                return null;
+
+            var piece = _values[idx];
+
+            _values.RemoveAt(idx);
+            _keys.RemoveAt(idx);
+
+            piece.Taken();
+
+            return piece;
+        }
+        public void Move(Tile fromTile, Tile toTile)
+        {
+            var idx = _keys.IndexOf(fromTile);
+            if (idx == -1)
                 return;
 
-            if (_pieces.ContainsValue(position))
+            var toPiece = PieceAt(toTile);
+            if (toPiece != null)
                 return;
 
-            _pieces.Add(piece, position);
-            OnPiecePlaced(new PiecePlacedEventArgs<TPiece, TPosition>(piece, position));
-        }
+            _keys[idx] = toTile;
 
-        public void Move(TPiece piece, TPosition toPosition)
+            var piece = _values[idx];
+            piece.Moved(fromTile, toTile);
+        }
+        public void Place(Tile toTile, TPiece piece)
         {
-            if (!TryGetPosition(piece, out var fromPosition))
+            if (_keys.Contains(toTile))
                 return;
 
-            if (TryGetPiece(toPosition, out _))
+            if (_values.Contains(piece))
                 return;
 
-            if (!_pieces.Remove(piece))
-                return;
+            _keys.Add(toTile);
+            _values.Add(piece);
 
-            _pieces.Add(piece, toPosition);
-            OnPieceMoved(new PieceMovedEventArgs<TPiece, TPosition>(piece, fromPosition, toPosition));
+            OnPiecePlaced(new PiecePlacedEventArgs<TPiece>(piece));
         }
 
-        public void Take(TPiece piece)
+        public void Highlight(List<Tile> tiles)
         {
-            if (!TryGetPosition(piece, out var fromPosition))
-                return;
-
-            if (_pieces.Remove(piece))
-                OnPieceTaken(new PieceTakenEventArgs<TPiece, TPosition>(piece, fromPosition));
-
+            foreach (var tile in tiles)
+            {
+                tile.IsHighlighted = true;
+            }
         }
-
-        protected virtual void OnPiecePlaced(PiecePlacedEventArgs<TPiece, TPosition> eventArgs)
+        public void UnHighlight(List<Tile> tiles)
         {
-            var handler = PiecePlaced;
-            handler?.Invoke(this, eventArgs);
+            foreach (var tile in tiles)
+            {
+                tile.IsHighlighted = false;
+            }
         }
 
-        protected virtual void OnPieceMoved(PieceMovedEventArgs<TPiece, TPosition> eventArgs)
+        protected virtual void OnPiecePlaced(PiecePlacedEventArgs<TPiece> args)
         {
-            var handler = PieceMoved;
-            handler?.Invoke(this, eventArgs);
+            EventHandler<PiecePlacedEventArgs<TPiece>> handler = PiecePlaced;
+            handler?.Invoke(this, args);
         }
-
-        protected virtual void OnPieceTaken(PieceTakenEventArgs<TPiece, TPosition> eventArgs)
+        public void Register(Position position, Tile tile)
         {
-            var handler = PieceTaken;
-            handler?.Invoke(this, eventArgs);
+            _tiles.Add(position, tile);
         }
+        //private void ConnectTile(Grid<Position> grid)
+        //{
+        //    var tiles = FindObjectsOfType<Tile>();
+        //    foreach (var tile in tiles)
+        //    {
+        //        var position = new Position();
+        //        //tile.Model = position;
+        //        float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.577f);
+        //        //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
+        //        
+        //        grid.Register(position, hexList[0], hexList[1], hexList[2]);
+        //
+        //        tile.gameObject.name = $"Tile ({hexList[0]},{hexList[1]},{hexList[2]})";
+        //    }
+        //}
     }
 }

@@ -1,6 +1,7 @@
 using Hexen.BoardSystem;
 using Hexen.CardSystem;
 using Hexen.GameSystem.Views;
+using Hexen.GameSystem.Models;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Hexen.GameSystem
         //private SelectionManager<Piece> _selectionManager;
         private Grid<Position> _grid;
 
-        //public Board<HexenPiece> Board { get; private set; }
+        public Board<HexenPiece> Board { get; private set; }
         //public Deck<CardBase> Deck { get; private set; }
         //public Hand<CardBase> Hand { get; private set; }
 
@@ -32,10 +33,11 @@ namespace Hexen.GameSystem
 
         public void Start()
         {
+            CreateBoard(_gridSize);
             //CreateDeck();
             //Hand = Deck.DealHand(5);
-            _grid = new Grid<Position>(/*_gridSize*/);
-            ConnectGrid(_grid);
+            //_grid = new Grid<Position>(/*_gridSize*/);
+            //ConnectGrid(_grid);
             //
             //_board = new Board<Position, Piece>();
             //_selectionManager = new SelectionManager<Piece>();
@@ -88,22 +90,25 @@ namespace Hexen.GameSystem
         //    _selectionManager.DeselectAll();
         //}
 
-        private void ConnectGrid(Grid<Position> grid)
+        //private void ConnectGrid(Grid<Position> grid)
+        //{
+        //    var tiles = FindObjectsOfType<Tile>();
+        //    foreach (var tile in tiles)
+        //    {
+        //        var position = new Position();
+        //        //tile.Model = position;
+        //        float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.577f);
+        //        //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
+        //        
+        //        grid.Register(position, hexList[0], hexList[1], hexList[2]);
+        //
+        //        tile.gameObject.name = $"Tile ({hexList[0]},{hexList[1]},{hexList[2]})";
+        //    }
+        //}
+        public void CreateBoard(int radius)
         {
-            var tiles = FindObjectsOfType<Tile>();
-            foreach (var tile in tiles)
-            {
-                var position = new Position();
-                //tile.Model = position;
-                float[] hexList = _positionHelper.PixelToHexPoint(tile.transform.position.x, tile.transform.position.z, 0.577f);
-                //var (q, r, s) = _positionHelper.ToHexGridPostion(grid, _boardParent, tile.transform.position);
-                
-                grid.Register(position, hexList[0], hexList[1], hexList[2]);
-        
-                tile.gameObject.name = $"Tile ({hexList[0]},{hexList[1]},{hexList[2]})";
-            }
+            Board = new Board<HexenPiece>(radius);
         }
-
         //private void ConnectPiece()
         //{
         //    var playerPieceViews = FindObjectsOfType<PlayerView>();

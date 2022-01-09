@@ -6,7 +6,7 @@ namespace Hexen.BoardSystem
 {
     public interface IPiece
     {
-       // void Moved(Tile fromTile, Tile toTile);
+        void Moved(Tile fromTile, Tile toTile);
         void Taken();
     }
 }
