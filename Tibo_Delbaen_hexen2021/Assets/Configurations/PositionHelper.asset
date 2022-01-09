@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29236beb9d032648a6e18b6ea0bb1e3, type: 3}
   m_Name: PositionHelper
   m_EditorClassIdentifier: 
+  _radius: 0.577
