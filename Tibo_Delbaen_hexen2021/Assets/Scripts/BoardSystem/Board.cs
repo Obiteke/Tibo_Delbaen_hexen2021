@@ -1,45 +1,154 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 namespace Hexen.BoardSystem
 {
-    public class Board : MonoBehaviour
+    public class PiecePlacedEventArgs<TPiece> : EventArgs where TPiece : class, IPiece
     {
-        private int _gridSize = 3;
-        [SerializeField]
-        private GameObject _tileObject;
+        public TPiece Piece { get; }
 
-        // Start is called before the first frame update
-        void Start()
+        public PiecePlacedEventArgs(TPiece piece)
         {
-            CreateBoard();
+            Piece = piece;
         }
-        private void CreateBoard()
+    }
+
+    public class Board<TPiece> where TPiece : class, IPiece
+    {
+        public event EventHandler<PiecePlacedEventArgs<TPiece>> PiecePlaced;
+
+        Dictionary<Position, Tile> _tiles = new Dictionary<Position, Tile>();
+
+        List<Tile> _keys = new List<Tile>();
+        List<TPiece> _values = new List<TPiece>();
+
+        public readonly int Radius;
+
+        public bool HexTiles = false;
+
+        public List<Tile> Tiles => _tiles.Values.ToList();
+        public List<TPiece> Enemies { get; } = new List<TPiece>();
+
+        public Board(int radius)
         {
-            for (int x = -_gridSize; x < _gridSize; x++)
+            Radius = radius;
+
+            HexTiles = radius != -1;
+            InitTiles();
+        }
+
+        public Tile TileAt(Position position)
+        {
+            if (_tiles.TryGetValue(position, out var tile))
+                return tile;
+
+            return null;
+        }
+        public TPiece PieceAt(Tile tile)
+        {
+            var idx = _keys.IndexOf(tile);
+            if (idx == -1)
+                return default;
+
+            return _values[idx];
+        }
+        public Tile TileOf(TPiece piece)
+        {
+            var idx = _values.IndexOf(piece);
+            if (idx == -1)
+                return null;
+
+            return _keys[idx];
+        }
+
+        public TPiece Take(Tile fromTile)
+        {
+            var idx = _keys.IndexOf(fromTile);
+            if (idx == -1)
+                return null;
+
+            var piece = _values[idx];
+
+            _values.RemoveAt(idx);
+            _keys.RemoveAt(idx);
+
+            piece.Taken();
+
+            return piece;
+        }
+        public void Move(Tile fromTile, Tile toTile)
+        {
+            var idx = _keys.IndexOf(fromTile);
+            if (idx == -1)
+                return;
+
+            var toPiece = PieceAt(toTile);
+            if (toPiece != null)
+                return;
+
+            _keys[idx] = toTile;
+
+            var piece = _values[idx];
+            piece.Moved(fromTile, toTile);
+        }
+        public void Place(Tile toTile, TPiece piece)
+        {
+            if (_keys.Contains(toTile))
+                return;
+
+            if (_values.Contains(piece))
+                return;
+
+            _keys.Add(toTile);
+            _values.Add(piece);
+
+            OnPiecePlaced(new PiecePlacedEventArgs<TPiece>(piece));
+        }
+
+        public void Highlight(List<Tile> tiles)
+        {
+            foreach (var tile in tiles)
             {
-                for (int y = -_gridSize; y < _gridSize; y++)
+                tile.IsHighlighted = true;
+            }
+        }
+        public void UnHighlight(List<Tile> tiles)
+        {
+            foreach (var tile in tiles)
+            {
+                tile.IsHighlighted = false;
+            }
+        }
+
+        protected virtual void OnPiecePlaced(PiecePlacedEventArgs<TPiece> args)
+        {
+            EventHandler<PiecePlacedEventArgs<TPiece>> handler = PiecePlaced;
+            handler?.Invoke(this, args);
+        }
+
+        private void InitTiles()
+        {
+            for (int x = -Radius; x <= Radius; x++)
+            {
+                for (int y = -Radius; y <= Radius; y++)
                 {
-                    for (int z = -_gridSize; z < _gridSize; z++)
+                    for (int z = -Radius; z <= Radius; z++)
                     {
                         if (IsValidPosition(x, y, z))
                         {
-                            Instantiate(_tileObject, new Vector3(x, 0, z),Quaternion.identity);
+                            _tiles.Add(new Position { X = x, Y = y, Z = z }, new Tile(x, y, z));
                         }
                     }
                 }
             }
         }
+
         private bool IsValidPosition(int x, int y, int z)
         {
             return x + y + z == 0;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }
