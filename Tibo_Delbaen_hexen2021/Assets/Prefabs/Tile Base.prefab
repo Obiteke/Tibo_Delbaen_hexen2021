@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c79e7e13ce804408da5b2c24dd12d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionHelper: {fileID: 11400000, guid: 62caaff6611397e4794e625561ebe2a8, type: 2}
+  _positionHelper: {fileID: 11400000, guid: c8784eeecaf8b98429d0b76c852223ee, type: 2}
   _highlightMaterial: {fileID: 0}
 --- !u!1001 &3859894435107660900
 PrefabInstance:

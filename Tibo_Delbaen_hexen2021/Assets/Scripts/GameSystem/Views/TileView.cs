@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using BoardSystem;
+using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using Utils;
 
 namespace GameSystem.Views
 {
-    public class TileView : MonoBehaviour
+    [SelectionBase]
+    public class TileView : MonoBehaviour//, IPointerClickHandler, IPointerExitHandler, IPointerEnterHandler, IDropHandler
     {
         [SerializeField]
         PositionHelper _positionHelper = null;
@@ -62,5 +62,51 @@ namespace GameSystem.Views
             else
                 _meshRenderer.material = _originalMaterial;
         }
+
+        internal Vector3 Size
+        {
+            set
+            {
+                transform.localScale = Vector3.one;
+
+                var meshRenderer = GetComponentInChildren<MeshRenderer>();
+                var meshSize = meshRenderer.bounds.size;
+
+                var ratioX = value.x / meshSize.x;
+                var ratioY = value.y / meshSize.y;
+                var ratioZ = value.z / meshSize.z;
+
+                transform.localScale = new Vector3(ratioX, ratioY, ratioZ);
+            }
+        }
+
+        //public void OnPointerClick(PointerEventData eventData)
+        //{
+        //    GameLoop.Instance.Select(Model);
+        //}
+        //
+        //public void OnPointerEnter(PointerEventData eventData)
+        //{
+        //    SingletonMonoBehaviour<GameLoop>.Instance.OnPointerEnterTile(eventData, _model);
+        //}
+        //
+        //public void OnPointerExit(PointerEventData eventData)
+        //{
+        //    SingletonMonoBehaviour<GameLoop>.Instance.OnPointerExitTile(eventData, _model);
+        //}
+        //
+        //private void OnDestroy()
+        //{
+        //    Model = null;
+        //}
+        //
+        //public void OnDrop(PointerEventData eventData)
+        //{
+        //    var activeCard = eventData.pointerDrag;
+        //    if (activeCard == null && activeCard.GetComponent<CardView>() == null)
+        //        return;
+        //
+        //    SingletonMonoBehaviour<GameLoop>.Instance.OnCardReleased(_model, activeCard.GetComponent<CardView>().Model);
+        //}
     }
 }
