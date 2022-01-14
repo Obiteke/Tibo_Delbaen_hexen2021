@@ -1,0 +1,21 @@
+{
+    "name": "GameSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:646b648faa4cf804baac5d09ee314ba6",
+        "GUID:1943514f0a2b1ac40b8ad9413a8075bc",
+        "GUID:394527f1bdf05294ebff1a20df671d4f",
+        "GUID:bb6d06ab1687ca44d9d0fc9845c1f7de",
+        "GUID:9e7d4adb3d05a4c4fb9e31c3601a1d69",
+        "GUID:cdfbe4e98708ddc46a3dd5e962c5fb99"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

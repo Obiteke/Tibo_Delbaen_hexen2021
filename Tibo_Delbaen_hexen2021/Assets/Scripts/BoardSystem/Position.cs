@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Hexen.BoardSystem
+namespace BoardSystem
 {
     public struct Position
     {

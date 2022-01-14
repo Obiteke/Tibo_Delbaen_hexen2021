@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace Hexen.BoardSystem
+namespace BoardSystem
 {
     public class Tile
     {

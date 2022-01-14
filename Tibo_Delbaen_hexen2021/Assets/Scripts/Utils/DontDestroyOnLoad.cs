@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hexen.Utils
+namespace Utils
 {
     public class DontDestroyOnLoad : MonoBehaviour
     {

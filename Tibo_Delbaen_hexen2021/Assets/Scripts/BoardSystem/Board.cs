@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-namespace Hexen.BoardSystem
+namespace BoardSystem
 {
     public class PiecePlacedEventArgs<TPiece> : EventArgs where TPiece : class, IPiece
     {

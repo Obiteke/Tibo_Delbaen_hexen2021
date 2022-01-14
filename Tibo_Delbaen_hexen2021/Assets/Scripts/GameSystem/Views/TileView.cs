@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Hexen.BoardSystem;
-using Hexen.Utils;
+using BoardSystem;
+using Utils;
 
-namespace Hexen.GameSystem.Views
+namespace GameSystem.Views
 {
     public class TileView : MonoBehaviour
     {
