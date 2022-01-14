@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 namespace GameSystem.Views
 {
     [SelectionBase]
-    public class PlayerView : ObjectView//, IPointerClickHandler
+    public class PlayerView : ObjectView, IPointerClickHandler
     {
         [SerializeField]
         private PositionHelper _positionHelper;
@@ -62,12 +62,12 @@ namespace GameSystem.Views
         {
             _boardViewTransform = FindObjectOfType<BoardView>().transform;
         }
-        //public void OnPointerClick(PointerEventData eventData)
-        //{
-        //    var board = GameLoop.Instance;
-        //
-        //    board.Select(Model);
-        //}
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            var board = GameLoop.Instance;
+        
+            //board.Select(Model);
+        }
         public override void Taken() { }
     }
 }

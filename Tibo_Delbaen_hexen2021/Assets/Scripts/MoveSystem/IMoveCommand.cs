@@ -1,18 +1,19 @@
-using System.Collections;
+using BoardSystem;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class IMoveCommand : MonoBehaviour
+namespace MoveSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface IMoveCommand<TPiece> where TPiece : class, IPiece
     {
-        
-    }
+        bool CanExecute(Board<TPiece> board, TPiece piece);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        List<Tile> Tiles(Board<TPiece> board, TPiece piece);
+
+        void Execute(Board<TPiece> board, TPiece piece, Tile toTile);
     }
 }
+    

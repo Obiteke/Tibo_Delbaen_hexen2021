@@ -19,7 +19,7 @@ namespace GameSystem.Views
         [SerializeField]
         PlayerView _prefab = null;
 
-        [SerializeField]
+        [SerializeField]        
         private PositionHelper _positionHelper = null;
 
         public PlayerView CreateHexenPieceView(Board<HexenPiece> board, HexenPiece model, string movementName)
