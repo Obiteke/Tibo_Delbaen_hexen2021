@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DefaultHexenPieceViewFactory
   m_EditorClassIdentifier: 
   _movementNames: []
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 3306726683162790375, guid: 8e979618ee097e14fa240581fac1c13c, type: 3}
   _positionHelper: {fileID: 0}
