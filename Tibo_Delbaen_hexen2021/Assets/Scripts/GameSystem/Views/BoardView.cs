@@ -39,10 +39,10 @@ namespace GameSystem.Views
             var piece = e.Piece;
 
             var gameLoop = GameLoop.Instance;
-            //var movementManager = gameLoop.MoveManager;
-            //var movementName = movementManager.MovementOf(piece);
-            //
-            //_hexenPieceViewFactory.CreateHexenPieceView(board, piece, movementName);
+            var movementManager = gameLoop.MoveManager;
+            var movementName = movementManager.MovementOf(piece);
+            
+            _hexenPieceViewFactory.CreateHexenPieceView(board, piece, movementName);
         }
     }
 }

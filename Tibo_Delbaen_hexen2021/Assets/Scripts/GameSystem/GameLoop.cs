@@ -53,11 +53,11 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         if (Board == null)
             CreateBoard(3);
 
-        //CreateDeck();
+        CreateDeck();
 
-        //Deck.Shuffle(3);
+        Deck.Shuffle(3);
 
-        //Hand = Deck.DealHand(5);
+        Hand = Deck.DealHand(5);
 
     }
 
@@ -91,22 +91,22 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     #region Instantiations
 
-    //private void CreateDeck()
-    //{
-    //    Deck = new Deck<CardBase>();
-    //
-    //    Dictionary<string, CardBase> _cards = new Dictionary<string, CardBase>() {
-    //        { "Charge", new ChargeCard(Board) },
-    //        { "Push", new PushCard(Board) },
-    //        { "Swipe", new SwipeCard(Board) },
-    //        { "Teleport", new TeleportCard(Board) }
-    //    };
-    //
-    //    for (int i = 0; i < _cards.Count; i++)
-    //    {
-    //        Deck.RegisterCard(_cards.Keys.ElementAt(i), _cards.Values.ElementAt(i));
-    //    }
-    //}
+    private void CreateDeck()
+    {
+        Deck = new Deck<CardBase>();
+    
+        Dictionary<string, CardBase> _cards = new Dictionary<string, CardBase>() {
+            { "Charge", new ChargeCard(Board) },
+            { "Push", new PushCard(Board) },
+            { "Swipe", new SwipeCard(Board) },
+            { "Teleport", new TeleportCard(Board) }
+        };
+    
+        for (int i = 0; i < _cards.Count; i++)
+        {
+            Deck.RegisterCard(_cards.Keys.ElementAt(i), _cards.Values.ElementAt(i));
+        }
+    }
 
     public void CreateBoard(int radius)
     {

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7961390447464770708, guid: 6a883a7536588254b969b53255ce5549, type: 3}
       propertyPath: m_Name
-      value: Card Charge
+      value: Card Charge Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7961390447464770729, guid: 6a883a7536588254b969b53255ce5549, type: 3}
       propertyPath: m_Sprite
@@ -99,5 +99,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7961390447464770730, guid: 6a883a7536588254b969b53255ce5549, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a883a7536588254b969b53255ce5549, type: 3}

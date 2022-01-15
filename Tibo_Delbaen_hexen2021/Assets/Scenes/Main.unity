@@ -578,10 +578,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 7
   m_Spacing: 20
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -634,10 +634,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 46183465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40aeaa128a0f7ea4b856e4035e724269, type: 3}
+  m_Script: {fileID: 11500000, guid: cda7617b0f7bac042970f6c2913f5983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardViewFactory: {fileID: 11400000, guid: a7bd166866a451043b15d892f6f2c557, type: 2}
+  _cardViewFactory: {fileID: 11400000, guid: 67d8a75f187eebd4290fdb94af560332, type: 2}
 --- !u!1 &62087698
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positionHelper: {fileID: 11400000, guid: c8784eeecaf8b98429d0b76c852223ee, type: 2}
-  _movementName: 
+  _movementName: Player
 --- !u!4 &84495696
 Transform:
   m_ObjectHideFlags: 0
