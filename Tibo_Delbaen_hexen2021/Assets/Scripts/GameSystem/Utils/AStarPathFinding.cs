@@ -7,6 +7,7 @@ using Utils;
 
 namespace GameSystem.Utils
 {
+    /*
     public class AStarPathFinding<TPosition>
     {
         public delegate List<TPosition> NeighbourStrategy(TPosition from);
@@ -91,4 +92,5 @@ namespace GameSystem.Utils
             return currentNode;
         }
     }
+    */
 }

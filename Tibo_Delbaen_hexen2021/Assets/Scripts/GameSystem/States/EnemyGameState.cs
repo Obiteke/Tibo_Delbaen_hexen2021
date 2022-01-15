@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace GameSystem.States
 {
-    
+    /*
     public class EnemyGameState : GameStateBase
     {
 
@@ -147,5 +147,5 @@ namespace GameSystem.States
         }
 
     }
-    
+    */
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace GameSystem.States
 {
+    /*
     public class PlayerGameState : GameStateBase
     {
         private Board<HexenPiece> _board;
@@ -103,4 +104,5 @@ namespace GameSystem.States
             GameLoop.Instance.OnCardTileFocused(_model, false);
         }
     }
+    */
 }

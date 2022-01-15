@@ -20,11 +20,11 @@ namespace GameSystem.States
         public virtual void OnExit() { }
 
 
-        public virtual void OnCardReleased(Tile hoverTile, string card) { }
-        public virtual void OnCardDragStart(string card) { }
-        public virtual void OnCardTileFocused(Tile hoverTile, bool entered) { }
-        public virtual void OnPointerExitTile(PointerEventData eventData, Tile model) { }
-        public virtual void OnPointerEnterTile(PointerEventData eventData, Tile model) { }
+        //public virtual void OnCardReleased(Tile hoverTile, string card) { }
+        //public virtual void OnCardDragStart(string card) { }
+        //public virtual void OnCardTileFocused(Tile hoverTile, bool entered) { }
+        //public virtual void OnPointerExitTile(PointerEventData eventData, Tile model) { }
+        //public virtual void OnPointerEnterTile(PointerEventData eventData, Tile model) { }
 
         public virtual void Select(HexenPiece hexenPiece) { }
 

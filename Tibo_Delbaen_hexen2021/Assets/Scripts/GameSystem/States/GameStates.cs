@@ -10,7 +10,7 @@ namespace GameSystem.States
     {
         public const string Play = "Play";
         public const string Replay = "Replay";
-        public const string Player = "Player";
-        public const string Enemy = "Enemy";
+        //public const string Player = "Player";
+        //public const string Enemy = "Enemy";
     }
 }

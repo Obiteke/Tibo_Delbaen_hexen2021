@@ -87,12 +87,22 @@ namespace GameSystem.Views
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            SingletonMonoBehaviour<GameLoop>.Instance.OnPointerEnterTile(eventData, _model);
+            var activeCard = eventData.pointerDrag;
+            if (activeCard == null || activeCard.GetComponent<CardView>() == null)
+                return;
+
+            SingletonMonoBehaviour<GameLoop>.Instance.OnCardTileFocused(_model, true);
+            //SingletonMonoBehaviour<GameLoop>.Instance.OnPointerEnterTile(eventData, _model);
         }
         
         public void OnPointerExit(PointerEventData eventData)
         {
-            SingletonMonoBehaviour<GameLoop>.Instance.OnPointerExitTile(eventData, _model);
+            var activeCard = eventData.pointerDrag;
+            if (activeCard == null || activeCard.GetComponent<CardView>() == null)
+                return;
+
+            SingletonMonoBehaviour<GameLoop>.Instance.OnCardTileFocused(_model, false);
+            //SingletonMonoBehaviour<GameLoop>.Instance.OnPointerExitTile(eventData, _model);
         }
         
         private void OnDestroy()
