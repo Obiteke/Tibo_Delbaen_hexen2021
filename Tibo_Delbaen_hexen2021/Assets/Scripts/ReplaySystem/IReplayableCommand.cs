@@ -1,18 +1,14 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class IReplayableCommand : MonoBehaviour
+namespace ReplaySystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface IReplayableCommand
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Forward();
+        void Backward();
     }
 }

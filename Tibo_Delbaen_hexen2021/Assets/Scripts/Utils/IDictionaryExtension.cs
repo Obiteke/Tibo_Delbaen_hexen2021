@@ -1,18 +1,16 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class IDictionaryExtension : MonoBehaviour
+namespace Utils
 {
-    // Start is called before the first frame update
-    void Start()
+    public static class IDictionaryExtension
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+        {
+            return dictionary.TryGetValue(key, out var value) ? value : defaultValue;
+        }
     }
 }

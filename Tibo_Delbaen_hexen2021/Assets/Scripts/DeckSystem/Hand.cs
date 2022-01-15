@@ -34,6 +34,12 @@ namespace DeckSystem
                 OnCardAdded(new CardEventArgs(card));
             }
         }
+        public void RemoveCard(string card)
+        {
+            Cards.Remove(card);
+            OnCardRemoved(new CardEventArgs(card));
+        }
+
         protected virtual void OnCardAdded(CardEventArgs args)
         {
             EventHandler<CardEventArgs> eventHandler = CardAdded;

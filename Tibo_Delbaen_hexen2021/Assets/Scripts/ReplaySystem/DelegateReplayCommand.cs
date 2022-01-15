@@ -1,22 +1,30 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ReplaySystem
 {
-
-    public class DelegateReplayCommand : MonoBehaviour
+    public class DelegateReplayCommand : IReplayableCommand
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        Action _forward;
+        Action _backward;
 
+        public DelegateReplayCommand(Action forward, Action backward)
+        {
+            _forward = forward;
+            _backward = backward;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void Backward()
         {
+            _backward.Invoke();
+        }
 
+        public void Forward()
+        {
+            _forward.Invoke();
         }
     }
 }

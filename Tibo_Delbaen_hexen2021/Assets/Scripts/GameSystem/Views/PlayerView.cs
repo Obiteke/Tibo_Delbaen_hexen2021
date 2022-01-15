@@ -66,7 +66,7 @@ namespace GameSystem.Views
         {
             var board = GameLoop.Instance;
         
-            //board.Select(Model);
+            board.Select(Model);
         }
         public override void Taken() { }
     }

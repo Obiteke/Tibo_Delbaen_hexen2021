@@ -17,12 +17,12 @@ namespace GameSystem.MoveCommandProviders
     {
         public const string Name = "Player";
 
-        //public PlayerMoveCommandProvider(PlayGameState playGameState, ReplayManager replayManager) : base(playGameState,
-        //    //new PlayerMoveCommand(replayManager),
-        //    new PlayerChargeCommand(replayManager),
-        //    new PlayerSwipeCommand(replayManager),
-        //    new PlayerPushbackCommand(replayManager),
-        //    new PlayerTeleportCommand(replayManager))
-        //{ }
+        public PlayerMoveCommandProvider(PlayGameState playGameState, ReplayManager replayManager) : base(playGameState,
+            //new PlayerMoveCommand(replayManager),
+            new PlayerChargeCommand(replayManager),
+            new PlayerSwipeCommand(replayManager),
+            new PlayerPushbackCommand(replayManager),
+            new PlayerTeleportCommand(replayManager))
+        { }
     }
 }

@@ -19,6 +19,20 @@ namespace DeckSystem
         {
             return new Hand<TCard>(this, maxCards);
         }
+        public TCard GetCardAction(string card)
+        {
+            if (!_cardActions.ContainsKey(card))
+                return default;
+
+            return _cardActions[card];
+        }
+        public void RegisterCard(string card, TCard cardAction)
+        {
+            if (_cardActions.ContainsKey(card))
+                return;
+
+            _cardActions.Add(card, cardAction);
+        }
         public void Shuffle(int _amount)
         {
             AddCard("Charge", _amount);

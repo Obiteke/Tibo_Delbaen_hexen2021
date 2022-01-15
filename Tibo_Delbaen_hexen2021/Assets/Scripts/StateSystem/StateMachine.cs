@@ -1,18 +1,33 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class StateMachine : MonoBehaviour
+namespace StateSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StateMachine<TState> where TState : IState<TState>
     {
-        
-    }
+        Dictionary<string, TState> _states = new Dictionary<string, TState>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void RegisterState(string name, TState state)
+        {
+            state.StateMachine = this;
+            _states.Add(name, state);
+        }
+
+        public TState CurrentState { get; internal set; }
+
+        public void MoveTo(string name)
+        {
+            var state = _states[name];
+
+            CurrentState?.OnExit();
+
+            CurrentState = state;
+
+            CurrentState?.OnEnter();
+        }
+
     }
 }

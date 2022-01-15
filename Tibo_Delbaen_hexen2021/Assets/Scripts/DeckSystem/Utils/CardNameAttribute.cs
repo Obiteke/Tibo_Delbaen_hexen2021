@@ -1,21 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 namespace DeckSystem.Utils
 {
-    public class CardNameAttribute : MonoBehaviour
+    public class CardNameAttribute : Attribute
     {
-        // Start is called before the first frame update
-        void Start()
+        public string Name;
+
+        public CardNameAttribute(string name)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Name = name;
         }
     }
 }
