@@ -15,7 +15,6 @@ namespace GameSystem.States
         Board<HexenPiece> _board;
 
         public bool IsLightTurn { get; internal set; } = true;
-        //public HexenPiece SelectedChessPiece => _selectedChessPiece;
         public HexenPiece SelectedHexenPiece => _selectedHexenPiece;
         public Board<HexenPiece> Board => _board;
         public PlayGameState(Board<HexenPiece> board, MoveManager<HexenPiece> moveManager)

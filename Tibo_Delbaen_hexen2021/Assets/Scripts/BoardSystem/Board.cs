@@ -31,6 +31,7 @@ namespace BoardSystem
 
         public List<Tile> Tiles => _tiles.Values.ToList();
         public List<TPiece> Enemies { get; } = new List<TPiece>();
+        //public List<TPiece> Pieces { get; } = new List<TPiece>();
 
         public Board(int radius)
         {
@@ -122,9 +123,9 @@ namespace BoardSystem
                 tile.IsHighlighted = false;
             }
         }
-
         protected virtual void OnPiecePlaced(PiecePlacedEventArgs<TPiece> args)
         {
+
             EventHandler<PiecePlacedEventArgs<TPiece>> handler = PiecePlaced;
             handler?.Invoke(this, args);
         }

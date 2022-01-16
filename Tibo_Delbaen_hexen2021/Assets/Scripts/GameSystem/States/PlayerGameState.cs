@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using UnityEngine;
 
 namespace GameSystem.States
 {
@@ -17,6 +18,8 @@ namespace GameSystem.States
 
         private HexenPiece _player;
 
+        //private GameObject _playerView;
+
         private CardBase _activeCard;
 
         private List<Tile> _highlightedTiles = new List<Tile>();
@@ -25,6 +28,11 @@ namespace GameSystem.States
         private Hand<CardBase> _hand;
         private int _cardsPlayed;
 
+        //private int _currentPlayerIndex;
+
+        //private Material _playerMaterial, _enemyMaterial;
+
+        //public PlayerGameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand, Material playerMaterial, Material enemyMaterial)
         public PlayerGameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand)
         {
             _board = board;
@@ -35,6 +43,7 @@ namespace GameSystem.States
         public override void OnEnter()
         {
             _cardsPlayed = 0;
+            //_player = NewPlayer;
         }
         public override void OnCardReleased(Tile focusedTile, string card)
         {
@@ -57,6 +66,10 @@ namespace GameSystem.States
 
             if (_cardsPlayed == 2)
                 StateMachine.MoveTo(GameStates.Enemy);
+            //{
+            //    StateMachine.MoveTo(GameStates.Select);
+            //}
+
         }
         public override void OnCardDragStart(string card)
         {
