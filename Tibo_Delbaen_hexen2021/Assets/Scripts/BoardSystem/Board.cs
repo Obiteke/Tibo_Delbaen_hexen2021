@@ -152,6 +152,11 @@ namespace BoardSystem
             }
         }
 
+        public void RemoveTile(Tile tile)
+        {
+            _tiles.Remove(tile.Position);
+        }
+
         private bool IsValidPosition(int x, int y, int z)
         {
             return x + y + z == 0;

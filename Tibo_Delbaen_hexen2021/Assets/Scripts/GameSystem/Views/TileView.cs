@@ -119,8 +119,9 @@ namespace GameSystem.Views
             if (activeCard == null && activeCard.GetComponent<CardView>() == null)
                 return;
 
-            
             SingletonMonoBehaviour<GameLoop>.Instance.OnCardReleased(_model, activeCard.GetComponent<CardView>().Model);
+            //if (activeCard.GetComponent<CardView>().Model == "Bomb")
+            //    Destroy(_model);
         }
     }
 }

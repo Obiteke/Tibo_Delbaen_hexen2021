@@ -48,6 +48,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     public Hand<CardBase> Hand { get; private set; }
     public MoveManager<HexenPiece> MoveManager { get; internal set; }
     //public List<EnemyView> Enemies { get; } = new List<EnemyView>();
+    public List<TileView> tileView { get; } = new List<TileView>();
 
     //public List<GameObject> PieceViews = new List<GameObject>();
     #endregion
@@ -141,6 +142,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     public void CreateBoard(int radius)
     {
         Board = new Board<HexenPiece>(radius);
+        // []tileView = FindObjectsOfType<TileView>();
     }
 
     #endregion
@@ -165,12 +167,10 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     
     public void Play()
     {
-        Debug.Log("y");
         _stateMachine.MoveTo(GameStates.Play);
     }
     public void End()
     {
-        Debug.Log("e");
         _stateMachine.MoveTo(GameStates.End);
         EndingScreen.SetActive(true);
     }
@@ -223,16 +223,25 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         Board.UnHighlight(_highlightedTiles);
         if (_highlightedTiles.Contains(focusedTile))
         {
+            if (card == "Bomb")
+            {
+                foreach(TileView tileview in tileView)
+                {
+                    Debug.Log("he");
+                    Destroy(tileview);
+
+                }
+            }
             Tile tile = Board.TileOf(_playerView.Model);
             _activeCard.OnMouseReleased(tile, focusedTile);
             Hand.RemoveCard(card);
             Hand.FillHand();
-            
+            //_highlightedTiles
         }
         else
             _activeCard = null;
 
-        //Debug.Log(_highlightedTiles);
+        //Debug.Log(_highlightedTiles.Count);
         _highlightedTiles.Clear();
     }
     internal void OnCardDragStart(string card)
