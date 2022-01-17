@@ -46,7 +46,6 @@ namespace GameSystem.Models.Cards
         {
             var player = Board.PieceAt(playerTile);
             var validTiles = new HexMovementHelper(Board, player, focusedTile, 1)
-            //var validTiles = new HexMovementHelper(Board, player, 1)
                 .Radius(1)
                 .GenerateTiles();
 

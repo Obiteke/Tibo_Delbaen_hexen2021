@@ -15,7 +15,8 @@ namespace GameSystem.Utils
             SouthEast,
             SouthWest,
             West,
-            NorthWest
+            NorthWest,
+            Center
         }
     }
 }
