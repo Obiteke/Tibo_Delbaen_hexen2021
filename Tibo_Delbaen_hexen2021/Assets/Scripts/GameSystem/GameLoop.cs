@@ -14,6 +14,7 @@ using StateSystem;
 using GameSystem.States;
 using DeckSystem;
 using GameSystem.Models.Cards;
+using UnityEngine.UI;
 
 public class GameLoop : SingletonMonoBehaviour<GameLoop>
 {
@@ -24,6 +25,8 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     #endregion
 
     #region Fields
+
+    public GameObject EndingScreen;
 
     [SerializeField]
     PositionHelper _positionHelper = null;
@@ -71,9 +74,11 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         MoveManager = new MoveManager<HexenPiece>(Board);
 
         var playGameState = new PlayGameState(Board, MoveManager);
-        _stateMachine.RegisterState(GameStates.Start, playGameState);
+        var EndGameState = new EndGameState(Board, MoveManager);
+        var StartGameState = new StartGameState(Board, MoveManager);
+        _stateMachine.RegisterState(GameStates.Start, StartGameState);
         _stateMachine.RegisterState(GameStates.Play, playGameState);
-        _stateMachine.RegisterState(GameStates.End, playGameState);
+        _stateMachine.RegisterState(GameStates.End, EndGameState);
         _stateMachine.RegisterState(GameStates.Replay, new ReplayGameState(replayManager));
         _stateMachine.MoveTo(GameStates.Start);
 
@@ -160,11 +165,14 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     
     public void Play()
     {
+        Debug.Log("y");
         _stateMachine.MoveTo(GameStates.Play);
     }
     public void End()
     {
+        Debug.Log("e");
         _stateMachine.MoveTo(GameStates.End);
+        EndingScreen.SetActive(true);
     }
     //public void OnCardDragStart(string card)
     //{
@@ -219,11 +227,12 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
             _activeCard.OnMouseReleased(tile, focusedTile);
             Hand.RemoveCard(card);
             Hand.FillHand();
+            
         }
         else
             _activeCard = null;
 
-        Debug.Log(_highlightedTiles);
+        //Debug.Log(_highlightedTiles);
         _highlightedTiles.Clear();
     }
     internal void OnCardDragStart(string card)

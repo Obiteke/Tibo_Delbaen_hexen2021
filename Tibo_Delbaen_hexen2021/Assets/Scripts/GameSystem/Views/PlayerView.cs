@@ -71,5 +71,9 @@ namespace GameSystem.Views
             board.Select(Model);
         }
         public override void Taken() { }
+        private void OnDestroy()
+        {
+            GameLoop.Instance.End();
+        }
     }
 }

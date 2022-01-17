@@ -26,6 +26,7 @@ namespace GameSystem.Models.Cards
                     continue;
                 Board.Take(tile);
                 //tile.
+                //GameLoop.Instance.End();
             }
         }
         /*
