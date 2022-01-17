@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameSystem.States
 {
-    public class PlayGameState : GameStateBase
+    public class StartGameState : GameStateBase
     {
         IMoveCommand<HexenPiece> _currentMoveCommand;
         //ChessPiece _selectedChessPiece = null;
@@ -17,7 +17,7 @@ namespace GameSystem.States
         public bool IsLightTurn { get; internal set; } = true;
         public HexenPiece SelectedHexenPiece => _selectedHexenPiece;
         public Board<HexenPiece> Board => _board;
-        public PlayGameState(Board<HexenPiece> board, MoveManager<HexenPiece> moveManager)
+        public StartGameState(Board<HexenPiece> board, MoveManager<HexenPiece> moveManager)
         {
             _moveManager = moveManager;
             _board = board;
@@ -25,18 +25,16 @@ namespace GameSystem.States
 
         public override void OnEnter()
         {
-            _moveManager.MoveCommandProviderChanged += OnMoveCommandProviderChanged;
+            
+           _moveManager.DeActivate();
+           
+           _currentMoveCommand = null;
+           _selectedHexenPiece = null;
+           
+           _moveManager.MoveCommandProviderChanged -= OnMoveCommandProviderChanged;
+            
         }
 
-        //public override void OnExit()
-        //{
-        //    _moveManager.DeActivate();
-        //
-        //    _currentMoveCommand = null;
-        //    _selectedHexenPiece = null;
-        //
-        //    _moveManager.MoveCommandProviderChanged -= OnMoveCommandProviderChanged;
-        //}
         //public override void Select(HexenPiece hexenPiece)
         //{
         //    if (hexenPiece == null || hexenPiece == _selectedHexenPiece)
@@ -91,27 +89,27 @@ namespace GameSystem.States
         //    }
         //}
 
-        public override void Select(IMoveCommand<HexenPiece> moveCommand)
-        {
-            if (_currentMoveCommand != null)
-                _board.UnHighlight(_currentMoveCommand.Tiles(_board, _selectedHexenPiece));
+        //public override void Select(IMoveCommand<HexenPiece> moveCommand)
+        //{
+        //    if (_currentMoveCommand != null)
+        //        _board.UnHighlight(_currentMoveCommand.Tiles(_board, _selectedHexenPiece));
+        //
+        //    _currentMoveCommand = moveCommand;
+        //
+        //    if (_currentMoveCommand != null)
+        //        _board.Highlight(_currentMoveCommand.Tiles(_board, _selectedHexenPiece));
+        //}
 
-            _currentMoveCommand = moveCommand;
-
-            if (_currentMoveCommand != null)
-                _board.Highlight(_currentMoveCommand.Tiles(_board, _selectedHexenPiece));
-        }
-
-        public override void Backward()
-        {
-            StateMachine.MoveTo(GameStates.Replay);
-        }
+        //public override void Backward()
+        //{
+        //    StateMachine.MoveTo(GameStates.Replay);
+        //}
 
         private void OnMoveCommandProviderChanged(object sender, MoveCommandProviderChangedEventArgs<HexenPiece> e)
         {
             if (_currentMoveCommand == null)
                 return;
-
+        
             var tiles = _currentMoveCommand.Tiles(_board, _selectedHexenPiece);
             _board.UnHighlight(tiles);
         }

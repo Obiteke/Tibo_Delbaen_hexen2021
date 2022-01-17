@@ -71,9 +71,11 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         MoveManager = new MoveManager<HexenPiece>(Board);
 
         var playGameState = new PlayGameState(Board, MoveManager);
+        _stateMachine.RegisterState(GameStates.Start, playGameState);
         _stateMachine.RegisterState(GameStates.Play, playGameState);
+        _stateMachine.RegisterState(GameStates.End, playGameState);
         _stateMachine.RegisterState(GameStates.Replay, new ReplayGameState(replayManager));
-        _stateMachine.MoveTo(GameStates.Play);
+        _stateMachine.MoveTo(GameStates.Start);
 
         // Manual hexpiece click movement
         MoveManager.Register(PlayerMoveCommandProvider.Name, new PlayerMoveCommandProvider(playGameState, replayManager));
@@ -156,6 +158,14 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         _stateMachine.CurrentState.Select(moveCommand);
     }
     
+    public void Play()
+    {
+        _stateMachine.MoveTo(GameStates.Play);
+    }
+    public void End()
+    {
+        _stateMachine.MoveTo(GameStates.End);
+    }
     //public void OnCardDragStart(string card)
     //{
     //    _stateMachine.CurrentState.OnCardDragStart(card);
@@ -180,11 +190,11 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     //{
     //    _stateMachine.CurrentState.OnPointerExitTile(eventData, _model);
     //}
-    
+
     #endregion
-    
+
     #region Playbacks
-    
+
     public void Forward()
     {
         _stateMachine.CurrentState.Forward();
