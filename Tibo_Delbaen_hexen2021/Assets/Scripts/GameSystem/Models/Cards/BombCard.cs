@@ -25,6 +25,7 @@ namespace GameSystem.Models.Cards
                 if (Board.PieceAt(tile) == null)
                     continue;
                 Board.Take(tile);
+                //tile.
             }
         }
         /*

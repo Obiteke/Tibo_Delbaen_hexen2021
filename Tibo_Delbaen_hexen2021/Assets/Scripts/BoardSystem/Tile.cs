@@ -12,6 +12,8 @@ namespace BoardSystem
 
         bool _isHighlighted = false;
 
+
+
         public Position Position { get; }
         public bool IsHighlighted
         {

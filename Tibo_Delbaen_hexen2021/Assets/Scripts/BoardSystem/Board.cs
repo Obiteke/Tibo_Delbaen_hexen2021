@@ -65,6 +65,11 @@ namespace BoardSystem
             return _keys[idx];
         }
 
+        //public bool TakeTileOf(Tile fromTile)
+        //{
+        //    return true;
+        //}
+
         public TPiece Take(Tile fromTile)
         {
             var idx = _keys.IndexOf(fromTile);

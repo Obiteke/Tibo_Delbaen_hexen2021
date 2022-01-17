@@ -61,6 +61,8 @@ namespace GameSystem.Views
                 _meshRenderer.material = _highlightMaterial;
             else
                 _meshRenderer.material = _originalMaterial;
+
+            
         }
 
         internal Vector3 Size
@@ -105,9 +107,10 @@ namespace GameSystem.Views
             //SingletonMonoBehaviour<GameLoop>.Instance.OnPointerExitTile(eventData, _model);
         }
         
-        private void OnDestroy()
+        public void OnDestroy()
         {
             Model = null;
+            Destroy(gameObject);
         }
         
         public void OnDrop(PointerEventData eventData)
@@ -115,7 +118,8 @@ namespace GameSystem.Views
             var activeCard = eventData.pointerDrag;
             if (activeCard == null && activeCard.GetComponent<CardView>() == null)
                 return;
-        
+
+            
             SingletonMonoBehaviour<GameLoop>.Instance.OnCardReleased(_model, activeCard.GetComponent<CardView>().Model);
         }
     }

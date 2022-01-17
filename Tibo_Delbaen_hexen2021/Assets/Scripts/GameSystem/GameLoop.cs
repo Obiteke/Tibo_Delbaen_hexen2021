@@ -213,6 +213,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         else
             _activeCard = null;
 
+        Debug.Log(_highlightedTiles);
         _highlightedTiles.Clear();
     }
     internal void OnCardDragStart(string card)
