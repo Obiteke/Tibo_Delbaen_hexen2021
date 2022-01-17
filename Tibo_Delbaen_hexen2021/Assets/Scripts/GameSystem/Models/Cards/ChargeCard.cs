@@ -55,7 +55,7 @@ namespace GameSystem.Models.Cards
                 focusedTile.Position.Z
             );
 
-            var validTiles = new HexMovementHelper(Board, player, Board.Radius * 2, focusedTile)
+            var validTiles = new HexMovementHelper(Board, player, focusedTile, Board.Radius * 2)
             //var validTiles = new HexMovementHelper(Board, player, (int)_distance, focusedTile)
                 .NorthEast(1)
                 .GenerateTiles();

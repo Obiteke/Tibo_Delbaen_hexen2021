@@ -42,7 +42,11 @@ namespace GameSystem.MoveCommands
         {
             _radius = radius;
         }
-        public HexMovementHelper(Board<HexenPiece> board, HexenPiece hexenPiece, int radius, Tile focusedTile) : this(board, hexenPiece, radius)
+        //public HexMovementHelper(Board<HexenPiece> board, Tile focusedTile, int radius) : this(board,)
+        //{
+        //    _radius = radius;
+        //}
+        public HexMovementHelper(Board<HexenPiece> board, HexenPiece hexenPiece, Tile focusedTile, int radius) : this(board, focusedTile, radius)
         {
             _focusedTile = focusedTile;
         }
@@ -125,11 +129,6 @@ namespace GameSystem.MoveCommands
         {
             Position startTile = _board.TileOf(_hexenPiece).Position;
 
-            //Tile tile = _board.TileAt(_pos);
-            //if (tile != null)
-            //{
-            //    _tiles.Add(tile);
-            //}
             Tile tile;
             for (int i = 0; i < 6; i++)
             {

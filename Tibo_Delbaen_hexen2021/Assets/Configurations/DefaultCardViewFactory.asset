@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: DefaultCardViewFactory
   m_EditorClassIdentifier: 
   _cardViews:
-  - {fileID: 2934356036196316695, guid: 7913e353a9d474145acb5d2f222a5639, type: 3}
+  - {fileID: 2934356036196316695, guid: f1181dc2396880f48a5db5ca49e05e3a, type: 3}
   - {fileID: 4844701063331590340, guid: 50e955393b4cfda48a88ff92ec720455, type: 3}
   - {fileID: 6451449517380397955, guid: 145cf1d07371c8244ac22ab3df21eab4, type: 3}
   - {fileID: 1954063942314261152, guid: d1ef919346965e1439c998ea1d8d35d3, type: 3}
+  - {fileID: 2934356036196316695, guid: 7913e353a9d474145acb5d2f222a5639, type: 3}
   _cardNames:
   - Charge
   - Push
   - Swipe
   - Teleport
+  - Bomb

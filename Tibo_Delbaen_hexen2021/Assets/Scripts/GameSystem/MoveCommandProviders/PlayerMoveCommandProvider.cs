@@ -22,7 +22,8 @@ namespace GameSystem.MoveCommandProviders
             new PlayerChargeCommand(replayManager),
             new PlayerSwipeCommand(replayManager),
             new PlayerPushbackCommand(replayManager),
-            new PlayerTeleportCommand(replayManager))
+            new PlayerTeleportCommand(replayManager),
+            new PlayerBombCommand(replayManager))
         { }
     }
 }
