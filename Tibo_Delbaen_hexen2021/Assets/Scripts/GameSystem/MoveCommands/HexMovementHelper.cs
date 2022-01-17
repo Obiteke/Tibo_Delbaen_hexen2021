@@ -50,6 +50,10 @@ namespace GameSystem.MoveCommands
         {
             _focusedTile = focusedTile;
         }
+        public HexMovementHelper(Board<HexenPiece> board, HexenPiece hexenPiece, int radius, Tile focusedTile) : this(board, hexenPiece, radius)
+        {
+            _focusedTile = focusedTile;
+        }
 
         public Position Offset(Position fromPosition, Position offset, int radius = 1)
         {
