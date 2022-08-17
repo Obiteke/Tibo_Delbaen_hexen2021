@@ -36,6 +36,10 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     private List<Tile> _highlightedTiles = new List<Tile>();
 
+    public GameObject startMenu;
+
+    public GameObject endMenu;
+
     #endregion
 
     #region Properties
@@ -55,6 +59,9 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     private void Awake()
     {
+        startMenu.SetActive(true);
+        endMenu.SetActive(false);
+
         if (Board == null)
             CreateBoard(3);
 
@@ -70,10 +77,12 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
         MoveManager = new MoveManager<HexenPiece>(Board);
 
-        var playGameState = new PlayGameState(Board, MoveManager);
+        var playGameState = new PlayGameState(_stateMachine,Board, MoveManager);
         _stateMachine.RegisterState(GameStates.Play, playGameState);
+        _stateMachine.RegisterState(GameStates.Start, new StartGameState(_stateMachine));
+        _stateMachine.RegisterState(GameStates.End, new EndGameState(_stateMachine));
         _stateMachine.RegisterState(GameStates.Replay, new ReplayGameState(replayManager));
-        _stateMachine.MoveTo(GameStates.Play);
+        _stateMachine.MoveTo(GameStates.Start);
 
         // Manual hexpiece click movement
         MoveManager.Register(PlayerMoveCommandProvider.Name, new PlayerMoveCommandProvider(playGameState, replayManager));
@@ -183,7 +192,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     
     #endregion
     
-    #region Playbacks
+    #region StatesChanges
     
     public void Forward()
     {
@@ -192,6 +201,17 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     public void Backward()
     {
         _stateMachine.CurrentState.Backward();
+    }
+    public void PlayGame()
+    {
+        _stateMachine.CurrentState.StartGame();
+        startMenu.SetActive(false);
+    }
+
+    public void EndGame()
+    {
+        _stateMachine.CurrentState.EndGame();
+        endMenu.SetActive(true);
     }
     #endregion
 

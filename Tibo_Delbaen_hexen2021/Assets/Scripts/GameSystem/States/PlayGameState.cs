@@ -1,6 +1,7 @@
 using BoardSystem;
 using GameSystem.Models;
 using MoveSystem;
+using StateSystem;
 using System.Collections.Generic;
 
 namespace GameSystem.States
@@ -13,12 +14,14 @@ namespace GameSystem.States
         Tile _selectedTile = null;
         MoveManager<HexenPiece> _moveManager;
         Board<HexenPiece> _board;
+        StateMachine<GameStateBase> _stateMachine;
 
         public bool IsLightTurn { get; internal set; } = true;
         public HexenPiece SelectedHexenPiece => _selectedHexenPiece;
         public Board<HexenPiece> Board => _board;
-        public PlayGameState(Board<HexenPiece> board, MoveManager<HexenPiece> moveManager)
+        public PlayGameState(StateMachine<GameStateBase> stateMachine, Board<HexenPiece> board, MoveManager<HexenPiece> moveManager)
         {
+            _stateMachine = stateMachine;
             _moveManager = moveManager;
             _board = board;
         }
@@ -114,6 +117,10 @@ namespace GameSystem.States
 
             var tiles = _currentMoveCommand.Tiles(_board, _selectedHexenPiece);
             _board.UnHighlight(tiles);
+        }
+        public override void EndGame()
+        {
+            _stateMachine.MoveTo(GameStates.End);
         }
     }
 }

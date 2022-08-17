@@ -35,5 +35,7 @@ namespace GameSystem.States
 
         public virtual void Forward() { }
         public virtual void Backward() { }
+        public virtual void StartGame() { }
+        public virtual void EndGame() { }
     }
 }
