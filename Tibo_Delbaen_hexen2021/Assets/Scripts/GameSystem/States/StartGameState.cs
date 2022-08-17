@@ -19,6 +19,7 @@ namespace GameSystem.States
         public override void StartGame()
         {
             _stateMachine.MoveTo(GameStates.Play);
+            _stateMachine.CurrentState.OnEnter();
         }
     }
 }

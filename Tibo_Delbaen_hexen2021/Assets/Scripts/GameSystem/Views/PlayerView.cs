@@ -47,6 +47,8 @@ namespace GameSystem.Views
         private void ModelTaken(object sender, EventArgs e)
         {
             Debug.Log("player taken");
+            FindObjectOfType<GameLoop>().EndGame();
+
             ////GameLoop.Instance.Board.Pieces.Remove(Model);
             ////GameLoop.Instance.PieceViews.Remove(gameObject);
             Destroy(gameObject);
@@ -68,7 +70,7 @@ namespace GameSystem.Views
         public void OnPointerClick(PointerEventData eventData)
         {
             var board = GameLoop.Instance;
-        
+            
             board.Select(Model);
         }
         public override void Taken() { }

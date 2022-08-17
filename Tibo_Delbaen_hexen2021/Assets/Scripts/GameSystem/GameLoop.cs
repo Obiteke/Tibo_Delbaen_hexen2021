@@ -40,6 +40,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     public GameObject endMenu;
 
+    private HandView _handViewScript;
     #endregion
 
     #region Properties
@@ -59,6 +60,10 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     private void Awake()
     {
+        _handViewScript = FindObjectOfType<HandView>();
+
+        _handViewScript.gameObject.SetActive(false);
+
         startMenu.SetActive(true);
         endMenu.SetActive(false);
 
@@ -115,7 +120,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         //MoveManager.Register(PlayerMoveCommandProvider.Name, new PlayerMoveCommandProvider(playGameState, replayManager));
         //MoveManager.Register(EnemyMoveCommandProvider.Name, new EnemyMoveCommandProvider(playGameState, replayManager));
 
-        StartCoroutine(OnPostStart());
+        //StartCoroutine(OnPostStart());
     }
 
     #endregion
@@ -206,6 +211,9 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     {
         _stateMachine.CurrentState.StartGame();
         startMenu.SetActive(false);
+
+        _handViewScript.gameObject.SetActive(true);
+        StartCoroutine(OnPostStart());
     }
 
     public void EndGame()
