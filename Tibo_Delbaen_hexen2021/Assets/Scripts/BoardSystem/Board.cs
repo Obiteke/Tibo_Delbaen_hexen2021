@@ -123,6 +123,16 @@ namespace BoardSystem
                 tile.IsHighlighted = false;
             }
         }
+        public void DestroyTile(List<Tile> tiles)
+        {
+            foreach (var tile in tiles)
+            {
+                //_tiles.Remove(tile.Position);
+                tile.IsDestroyed = true;
+
+            }
+        }
+
         protected virtual void OnPiecePlaced(PiecePlacedEventArgs<TPiece> args)
         {
 
@@ -146,6 +156,10 @@ namespace BoardSystem
                 }
             }
         }
+        //public void DestroyTiles()
+        //{
+        //    _tiles.Remove();
+        //}
 
         private bool IsValidPosition(int x, int y, int z)
         {

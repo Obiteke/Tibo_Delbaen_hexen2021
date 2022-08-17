@@ -46,6 +46,7 @@ namespace GameSystem.Views
         }
         private void ModelTaken(object sender, EventArgs e)
         {
+            Debug.Log("player taken");
             ////GameLoop.Instance.Board.Pieces.Remove(Model);
             ////GameLoop.Instance.PieceViews.Remove(gameObject);
             Destroy(gameObject);

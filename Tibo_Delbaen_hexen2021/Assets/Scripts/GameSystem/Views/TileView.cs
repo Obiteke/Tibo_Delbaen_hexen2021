@@ -18,6 +18,7 @@ namespace GameSystem.Views
         Material _originalMaterial;
 
         MeshRenderer _meshRenderer;
+        bool _destroying = false;
 
         Tile _model;
 
@@ -35,6 +36,9 @@ namespace GameSystem.Views
 
                 if (_model != null)
                     _model.HighlightStatusChanged += ModelHighlightStatusChanged;
+
+                if (_model != null)
+                    _model.DestroyedStatusChanged += ModelDestroyStatusChanged;
             }
         }
 
@@ -61,6 +65,11 @@ namespace GameSystem.Views
                 _meshRenderer.material = _highlightMaterial;
             else
                 _meshRenderer.material = _originalMaterial;
+        }
+        private void ModelDestroyStatusChanged(object sender, EventArgs e)
+        {
+            //if (Model.IsDestroyed)
+                Destroy(gameObject);
         }
 
         internal Vector3 Size
@@ -109,13 +118,19 @@ namespace GameSystem.Views
         {
             Model = null;
         }
+        public void DestroyTile()
+        {
+            Destroy(gameObject);
+        }
         
         public void OnDrop(PointerEventData eventData)
         {
             var activeCard = eventData.pointerDrag;
             if (activeCard == null && activeCard.GetComponent<CardView>() == null)
                 return;
-        
+            
+            
+
             SingletonMonoBehaviour<GameLoop>.Instance.OnCardReleased(_model, activeCard.GetComponent<CardView>().Model);
         }
     }

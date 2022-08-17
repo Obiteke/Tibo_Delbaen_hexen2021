@@ -121,7 +121,8 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
             { "Charge", new ChargeCard(Board) },
             { "Push", new PushCard(Board) },
             { "Swipe", new SwipeCard(Board) },
-            { "Teleport", new TeleportCard(Board) }
+            { "Teleport", new TeleportCard(Board) },
+            { "Bomb", new BombCard(Board) }
         };
     
         for (int i = 0; i < _cards.Count; i++)
@@ -200,10 +201,11 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     {
         if (_activeCard == null)
             return;
-
+        //Board.DestroyTile(_highlightedTiles);
         Board.UnHighlight(_highlightedTiles);
         if (_highlightedTiles.Contains(focusedTile))
         {
+
             Tile tile = Board.TileOf(_playerView.Model);
             _activeCard.OnMouseReleased(tile, focusedTile);
             Hand.RemoveCard(card);

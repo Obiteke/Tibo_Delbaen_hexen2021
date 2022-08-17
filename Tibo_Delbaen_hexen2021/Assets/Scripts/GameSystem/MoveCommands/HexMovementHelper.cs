@@ -14,7 +14,8 @@ namespace GameSystem.MoveCommands
             { Direction.HexCardinal.SouthEast, new Position { X = 0, Z = 1 } },
             { Direction.HexCardinal.SouthWest, new Position { X = -1, Z = 1 } },
             { Direction.HexCardinal.West, new Position { X = -1, Z = 0 } },
-            { Direction.HexCardinal.NorthWest, new Position { X = 0, Z = -1 } }
+            { Direction.HexCardinal.NorthWest, new Position { X = 0, Z = -1 } },
+            { Direction.HexCardinal.Center, new Position { X = 0, Z = 0 } }
         };
 
         public delegate bool Validator(Board<HexenPiece> board, HexenPiece hexenPiece, Tile toTile);
@@ -43,6 +44,10 @@ namespace GameSystem.MoveCommands
             _radius = radius;
         }
         public HexMovementHelper(Board<HexenPiece> board, HexenPiece hexenPiece, int radius, Tile focusedTile) : this(board, hexenPiece, radius)
+        {
+            _focusedTile = focusedTile;
+        }
+        public HexMovementHelper(Board<HexenPiece> board, HexenPiece hexenPiece, Tile focusedTile, int radius) : this(board, focusedTile, radius)
         {
             _focusedTile = focusedTile;
         }
@@ -99,7 +104,7 @@ namespace GameSystem.MoveCommands
             Position startTile = _tile.Position;
 
             Tile tile;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 List<Tile> _rowTiles = new List<Tile>();
                 for (int j = 1; j <= _radius; j++)
