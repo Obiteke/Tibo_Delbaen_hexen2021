@@ -42,10 +42,7 @@ namespace GameSystem.States
             _cardsPlayed = 0;
             //_player = NewPlayer;
         }
-        public override void OnExit()
-        {
-            _gameLoop.UIChange();
-        }
+        
         public override void OnCardReleased(Tile focusedTile, string card)
         {
             if (_activeCard == null)
@@ -58,6 +55,7 @@ namespace GameSystem.States
                 _activeCard.OnMouseReleased(tile, focusedTile);
                 _hand.RemoveCard(card);
                 _hand.FillHand();
+                
                 _cardsPlayed++;
             }
             else
@@ -66,7 +64,10 @@ namespace GameSystem.States
             _highlightedTiles.Clear();
 
             if (_cardsPlayed == 1)
+            {
+                _gameLoop.UIChange();
                 StateMachine.MoveTo(GameStates.Player1);
+            }
             //{
             //    StateMachine.MoveTo(GameStates.Select);
             //}
