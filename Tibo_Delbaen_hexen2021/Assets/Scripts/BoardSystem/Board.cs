@@ -48,6 +48,32 @@ namespace BoardSystem
 
             return null;
         }
+        public List<Tile> TakeRandomTiles(int countOfRandomTiles)
+        {
+            List<Tile> allBoardTiles = Tiles;
+
+            var random = new System.Random();
+
+            int tileCount = allBoardTiles.Count;
+
+            List<Tile> randomTiles = new List<Tile>();
+
+            for (int i = 0; i < countOfRandomTiles; i++)
+            {
+                int tileNumberInList = random.Next(tileCount);
+                Debug.Log("hey this is the tile number in list " + tileNumberInList);
+
+                randomTiles.Add(allBoardTiles[tileNumberInList]);
+            }
+
+            return randomTiles;
+
+
+
+
+
+        }
+
         public TPiece PieceAt(Tile tile)
         {
             var idx = _keys.IndexOf(tile);

@@ -19,6 +19,10 @@ namespace GameSystem.Models.Cards
             if (!tiles.Contains(focusedTile))
                 return;
 
+            tiles.Remove(focusedTile);
+
+            //tiles.Add(Board.TakeRandomTiles(3));
+            tiles = Board.TakeRandomTiles(3);
             foreach (Tile tile in tiles)
             {
                 if (Board.PieceAt(tile) == null)
@@ -54,6 +58,7 @@ namespace GameSystem.Models.Cards
 
             if (Board.PieceAt(focusedTile) == null)
                 tiles.Add(focusedTile);
+
 
             return tiles;
 
