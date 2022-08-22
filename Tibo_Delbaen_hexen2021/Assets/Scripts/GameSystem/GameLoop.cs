@@ -121,7 +121,9 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
             { "Charge", new ChargeCard(Board) },
             { "Push", new PushCard(Board) },
             { "Swipe", new SwipeCard(Board) },
-            { "Teleport", new TeleportCard(Board) }//,
+            { "Teleport", new TeleportCard(Board) },
+            { "Rain", new RainCard(Board) }
+            //,
             //{ "Bomb", new BombCard(Board) }
         };
     
