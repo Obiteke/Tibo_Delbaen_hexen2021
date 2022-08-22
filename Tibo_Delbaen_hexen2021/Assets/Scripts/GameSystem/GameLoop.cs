@@ -36,13 +36,16 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     private List<Tile> _highlightedTiles = new List<Tile>();
 
+    private List<HexenPiece> _playerPieces = new List<HexenPiece>();
+
     #endregion
 
     #region Properties
 
     public Board<HexenPiece> Board { get; private set; }
     public Deck<CardBase> Deck { get; private set; }
-    public Hand<CardBase> Hand { get; private set; }
+    public Hand<CardBase> HandPlayer1 { get; private set; }
+    public Hand<CardBase> HandPlayer2 { get; private set; }
     public MoveManager<HexenPiece> MoveManager { get; internal set; }
     //public List<EnemyView> Enemies { get; } = new List<EnemyView>();
 
@@ -58,26 +61,19 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         if (Board == null)
             CreateBoard(3);
 
+
         CreateDeck();
 
         Deck.Shuffle(3);
 
-        Hand = Deck.DealHand(5);
+        HandPlayer1 = Deck.DealHand(5);
+        HandPlayer2 = Deck.DealHand(5);
 
         _stateMachine = new StateMachine<GameStateBase>();
 
         var replayManager = new ReplayManager();
 
         MoveManager = new MoveManager<HexenPiece>(Board);
-
-        var playGameState = new PlayGameState(Board, MoveManager);
-        _stateMachine.RegisterState(GameStates.Play, playGameState);
-        _stateMachine.RegisterState(GameStates.Replay, new ReplayGameState(replayManager));
-        _stateMachine.MoveTo(GameStates.Play);
-
-        // Manual hexpiece click movement
-        MoveManager.Register(PlayerMoveCommandProvider.Name, new PlayerMoveCommandProvider(playGameState, replayManager));
-        MoveManager.Register(EnemyMoveCommandProvider.Name, new EnemyMoveCommandProvider(playGameState, replayManager));
 
 
     }
@@ -91,21 +87,15 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         //MoveManager = new MoveManager<HexenPiece>(Board);
         
         ConnectViewsToModel();
+
+
+        var player1GameState = new Player1GameState(Board, Board.Players[0], Deck, HandPlayer1);
+        var player2GameState = new Player2GameState(Board, Board.Players[1], Deck, HandPlayer2);
+        _stateMachine.RegisterState(GameStates.Player1, player1GameState);
+        _stateMachine.RegisterState(GameStates.Player2, player2GameState);
+        _stateMachine.MoveTo(GameStates.Player1);
+
         
-        FindPlayer();
-
-        //var playGameState = new PlayGameState(Board, MoveManager);
-        //_stateMachine.RegisterState(GameStates.Play, playGameState);
-        //_stateMachine.RegisterState(GameStates.Replay, new ReplayGameState(replayManager));
-        ////_stateMachine.RegisterState(GameStates.Player, new PlayerGameState(Board, _playerView.Model, Deck, Hand));
-        ////_stateMachine.RegisterState(GameStates.Player, new PlayerGameState(Board, _playerView.Model, Deck, Hand, PlayerMaterial, EnemyMaterial));
-        ////_stateMachine.RegisterState(GameStates.Enemy, new EnemyGameState(Board, _playerView.Model));
-        ////_stateMachine.MoveTo(GameStates.Enemy);
-        //
-        //// Manual hexpiece click movement
-        //MoveManager.Register(PlayerMoveCommandProvider.Name, new PlayerMoveCommandProvider(playGameState, replayManager));
-        //MoveManager.Register(EnemyMoveCommandProvider.Name, new EnemyMoveCommandProvider(playGameState, replayManager));
-
         StartCoroutine(OnPostStart());
     }
 
@@ -123,8 +113,6 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
             { "Swipe", new SwipeCard(Board) },
             { "Teleport", new TeleportCard(Board) },
             { "Rain", new RainCard(Board) }
-            //,
-            //{ "Bomb", new BombCard(Board) }
         };
     
         for (int i = 0; i < _cards.Count; i++)
@@ -158,30 +146,30 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         _stateMachine.CurrentState.Select(moveCommand);
     }
     
-    //public void OnCardDragStart(string card)
-    //{
-    //    _stateMachine.CurrentState.OnCardDragStart(card);
-    //}
-    //
-    //public void OnCardReleased(Tile hoverTile, string card)
-    //{
-    //    _stateMachine.CurrentState.OnCardReleased(hoverTile, card);
-    //}
-    //
-    //public void OnCardTileFocused(Tile hoverTile, bool entered)
-    //{
-    //    _stateMachine.CurrentState.OnCardTileFocused(hoverTile, entered);
-    //}
-    //
-    //public void OnPointerEnterTile(UnityEngine.EventSystems.PointerEventData eventData, Tile _model)
-    //{
-    //    _stateMachine.CurrentState.OnPointerEnterTile(eventData, _model);
-    //}
-    //
-    //public void OnPointerExitTile(UnityEngine.EventSystems.PointerEventData eventData, Tile _model)
-    //{
-    //    _stateMachine.CurrentState.OnPointerExitTile(eventData, _model);
-    //}
+    public void OnCardDragStart(string card)
+    {
+        _stateMachine.CurrentState.OnCardDragStart(card);
+    }
+    
+    public void OnCardReleased(Tile hoverTile, string card)
+    {
+        _stateMachine.CurrentState.OnCardReleased(hoverTile, card);
+    }
+    
+    public void OnCardTileFocused(Tile hoverTile, bool entered)
+    {
+        _stateMachine.CurrentState.OnCardTileFocused(hoverTile, entered);
+    }
+    
+    public void OnPointerEnterTile(UnityEngine.EventSystems.PointerEventData eventData, Tile _model)
+    {
+        _stateMachine.CurrentState.OnPointerEnterTile(eventData, _model);
+    }
+    
+    public void OnPointerExitTile(UnityEngine.EventSystems.PointerEventData eventData, Tile _model)
+    {
+        _stateMachine.CurrentState.OnPointerExitTile(eventData, _model);
+    }
     
     #endregion
     
@@ -199,47 +187,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     #region Triggers
 
-    internal void OnCardReleased(Tile focusedTile, string card)
-    {
-        if (_activeCard == null)
-            return;
-        //Board.DestroyTile(_highlightedTiles);
-        Board.UnHighlight(_highlightedTiles);
-        if (_highlightedTiles.Contains(focusedTile))
-        {
-
-            Tile tile = Board.TileOf(_playerView.Model);
-            _activeCard.OnMouseReleased(tile, focusedTile);
-            Hand.RemoveCard(card);
-            Hand.FillHand();
-        }
-        else
-            _activeCard = null;
-
-        _highlightedTiles.Clear();
-    }
-    internal void OnCardDragStart(string card)
-    {
-        _activeCard = Deck.GetCardAction(card);
-    }
-    internal void OnCardTileFocused(Tile focusedTile, bool entered)
-    {
-        if (_activeCard == null)
-            return;
-
-        if (!entered)
-        {
-            Board.UnHighlight(_highlightedTiles);
-            _highlightedTiles.Clear();
-            return;
-        }
-
-        Tile _playerTile = Board.TileOf(_playerView.Model);
-        _highlightedTiles = _activeCard.Tiles(_playerTile, focusedTile);
-        Board.Highlight(_highlightedTiles);
-    }
-
-
+    
     protected virtual void OnInitialized(EventArgs arg)
     {
         EventHandler handler = Initialized;
@@ -274,9 +222,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     
             pieceView.Model = piece;
 
-            //Board.Pieces.Add(piece);
-
-            //PieceViews.Add(pieceView.gameObject);
+            Board.Players.Add(piece);
         }
         var enemyPieceViews = FindObjectsOfType<EnemyView>();
         foreach (var pieceView in enemyPieceViews)
@@ -293,19 +239,7 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
             pieceView.Model = piece;
     
             Board.Enemies.Add(piece);
-
-            //Board.Pieces.Add(piece);
-
-
-            // Add enemy views here to keep it out of board
-            //Enemies.Add(pieceView);
-
-            //PieceViews.Add(pieceView.gameObject);
         }
-    }
-    private void FindPlayer()
-    {
-        _playerView = FindObjectOfType<PlayerView>();
     }
     #endregion
 

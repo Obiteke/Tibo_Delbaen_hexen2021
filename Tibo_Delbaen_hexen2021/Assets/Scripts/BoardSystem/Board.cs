@@ -33,7 +33,7 @@ namespace BoardSystem
 
         public List<Tile> Tiles => _tiles.Values.ToList();
         public List<TPiece> Enemies { get; } = new List<TPiece>();
-        //public List<TPiece> Pieces { get; } = new List<TPiece>();
+        public List<TPiece> Players { get; } = new List<TPiece>();
 
         public Board(int radius)
         {

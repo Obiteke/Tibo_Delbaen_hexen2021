@@ -10,6 +10,8 @@ namespace GameSystem.States
     {
         public const string Play = "Play";
         public const string Replay = "Replay";
+        public const string Player1 = "Player1";
+        public const string Player2 = "Player2";
         //public const string Player = "Player";
         //public const string Enemy = "Enemy";
         //public const string Select = "Select";

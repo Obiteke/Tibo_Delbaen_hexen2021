@@ -49,7 +49,7 @@ namespace GameSystem.Views
         }
         private void OnGameLoopInitialized(object sender, EventArgs e)
         {
-            _model = SingletonMonoBehaviour<GameLoop>.Instance.Hand;
+            _model = SingletonMonoBehaviour<GameLoop>.Instance.HandPlayer1;
             _model.CardAdded += new EventHandler<CardEventArgs>(OnCardAdded);
             _model.CardRemoved += new EventHandler<CardEventArgs>(OnCardRemoved);
             InitCardView();

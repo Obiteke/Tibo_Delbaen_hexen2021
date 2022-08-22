@@ -2,17 +2,12 @@ using BoardSystem;
 using DeckSystem;
 using GameSystem.Models;
 using GameSystem.Models.Cards;
-using System;
+using MoveSystem;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using UnityEngine;
 
 namespace GameSystem.States
 {
-    /*
-    public class PlayerGameState : GameStateBase
+    public class Player1GameState : GameStateBase
     {
         private Board<HexenPiece> _board;
 
@@ -33,7 +28,7 @@ namespace GameSystem.States
         //private Material _playerMaterial, _enemyMaterial;
 
         //public PlayerGameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand, Material playerMaterial, Material enemyMaterial)
-        public PlayerGameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand)
+        public Player1GameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand)
         {
             _board = board;
             _player = player;
@@ -65,7 +60,7 @@ namespace GameSystem.States
             _highlightedTiles.Clear();
 
             if (_cardsPlayed == 1)
-                StateMachine.MoveTo(GameStates.Enemy);
+                StateMachine.MoveTo(GameStates.Player2);
             //{
             //    StateMachine.MoveTo(GameStates.Select);
             //}
@@ -116,6 +111,5 @@ namespace GameSystem.States
 
             GameLoop.Instance.OnCardTileFocused(_model, false);
         }
-    }*/
-    
+    }
 }
