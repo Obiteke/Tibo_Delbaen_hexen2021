@@ -249,7 +249,8 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
     IEnumerator OnPostStart()
     {
         yield return new WaitForEndOfFrame();
-    
+
+        Board.OnStart();
         OnInitialized(EventArgs.Empty);
     }
     

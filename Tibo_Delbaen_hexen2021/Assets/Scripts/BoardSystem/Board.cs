@@ -22,6 +22,8 @@ namespace BoardSystem
 
         Dictionary<Position, Tile> _tiles = new Dictionary<Position, Tile>();
 
+        List<Tile> allBoardTiles = new List<Tile>();
+
         List<Tile> _keys = new List<Tile>();
         List<TPiece> _values = new List<TPiece>();
 
@@ -40,6 +42,10 @@ namespace BoardSystem
             HexTiles = radius != -1;
             InitTiles();
         }
+        public void OnStart()
+        {
+            allBoardTiles = Tiles;
+        } 
 
         public Tile TileAt(Position position)
         {
@@ -50,25 +56,36 @@ namespace BoardSystem
         }
         public List<Tile> TakeRandomTiles(int countOfRandomTiles)
         {
-            List<Tile> allBoardTiles = Tiles;
+            
+            List<Tile> randomTiles = new List<Tile>();
 
             var random = new System.Random();
 
-            int tileCount = allBoardTiles.Count;
-
-            List<Tile> randomTiles = new List<Tile>();
+            var nums = Enumerable.Range(0, allBoardTiles.Count).ToArray();
+            
+            // Shuffle the array
+            for (int i = 0; i < countOfRandomTiles; ++i)
+            {
+                int randomIndex = random.Next(nums.Length);
+                int temp = nums[randomIndex];
+                nums[randomIndex] = nums[i];
+                nums[i] = temp;
+            }
 
             for (int i = 0; i < countOfRandomTiles; i++)
             {
-                int tileNumberInList = random.Next(tileCount);
-                Debug.Log("hey this is the tile number in list " + tileNumberInList);
+                //int tileNumberInList = random.Next(allBoardTiles.Count);
+                //Debug.Log("hey this is the tile number in list " + nums[i]);
+                //Debug.Log(nums[i]);
+                randomTiles.Add(allBoardTiles[nums[i]]);
+                allBoardTiles.RemoveAt(nums[i]);
 
-                randomTiles.Add(allBoardTiles[tileNumberInList]);
             }
 
             return randomTiles;
 
-
+            
+            // Now your array is randomized and you can simply print them in order
 
 
 
