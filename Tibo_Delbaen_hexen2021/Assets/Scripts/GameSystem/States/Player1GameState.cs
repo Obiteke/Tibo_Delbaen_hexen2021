@@ -21,6 +21,7 @@ namespace GameSystem.States
 
         private Deck<CardBase> _deck;
         private Hand<CardBase> _hand;
+        private GameLoop _gameLoop;
         private int _cardsPlayed;
 
         //private int _currentPlayerIndex;
@@ -28,17 +29,22 @@ namespace GameSystem.States
         //private Material _playerMaterial, _enemyMaterial;
 
         //public PlayerGameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand, Material playerMaterial, Material enemyMaterial)
-        public Player1GameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand)
+        public Player1GameState(Board<HexenPiece> board, HexenPiece player, Deck<CardBase> deck, Hand<CardBase> hand, GameLoop gameLoop)
         {
             _board = board;
             _player = player;
             _deck = deck;
             _hand = hand;
+            _gameLoop = gameLoop;
         }
         public override void OnEnter()
         {
             _cardsPlayed = 0;
             //_player = NewPlayer;
+        }
+        public override void OnExit()
+        {
+            _gameLoop.UIChange();
         }
         public override void OnCardReleased(Tile focusedTile, string card)
         {

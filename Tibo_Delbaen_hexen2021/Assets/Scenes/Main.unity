@@ -632,6 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardViewFactory: {fileID: 11400000, guid: 67d8a75f187eebd4290fdb94af560332, type: 2}
+  isPlayer2Hand: 0
 --- !u!1 &52214546
 GameObject:
   m_ObjectHideFlags: 0
@@ -8542,6 +8543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardViewFactory: {fileID: 11400000, guid: 67d8a75f187eebd4290fdb94af560332, type: 2}
+  isPlayer2Hand: 1
 --- !u!114 &1471117701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11310,6 +11312,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positionHelper: {fileID: 11400000, guid: c8784eeecaf8b98429d0b76c852223ee, type: 2}
+  uIHandPlayer1: {fileID: 46183465}
+  uIHandPlayer2: {fileID: 1471117698}
 --- !u!4 &2104341857
 Transform:
   m_ObjectHideFlags: 0

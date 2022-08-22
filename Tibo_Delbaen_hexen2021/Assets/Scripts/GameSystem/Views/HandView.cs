@@ -13,6 +13,8 @@ namespace GameSystem.Views
         [SerializeField]
         CardViewFactory _cardViewFactory;
 
+        public bool isPlayer2Hand = false;
+
         private Hand<CardBase> _model;
 
         private readonly List<string> _cards = new List<string>();
@@ -49,7 +51,11 @@ namespace GameSystem.Views
         }
         private void OnGameLoopInitialized(object sender, EventArgs e)
         {
-            _model = SingletonMonoBehaviour<GameLoop>.Instance.HandPlayer1;
+            if(!isPlayer2Hand)
+                _model = SingletonMonoBehaviour<GameLoop>.Instance.HandPlayer1;
+            else
+                _model = SingletonMonoBehaviour<GameLoop>.Instance.HandPlayer2;
+
             _model.CardAdded += new EventHandler<CardEventArgs>(OnCardAdded);
             _model.CardRemoved += new EventHandler<CardEventArgs>(OnCardRemoved);
             InitCardView();

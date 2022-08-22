@@ -30,6 +30,9 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     StateMachine<GameStateBase> _stateMachine;
 
+    public GameObject uIHandPlayer1;
+    public GameObject uIHandPlayer2;
+
     private CardBase _activeCard;
 
     private PlayerView _playerView;
@@ -89,11 +92,13 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
         ConnectViewsToModel();
 
 
-        var player1GameState = new Player1GameState(Board, Board.Players[0], Deck, HandPlayer1);
-        var player2GameState = new Player2GameState(Board, Board.Players[1], Deck, HandPlayer2);
+        var player1GameState = new Player1GameState(Board, Board.Players[0], Deck, HandPlayer1, this);
+        var player2GameState = new Player2GameState(Board, Board.Players[1], Deck, HandPlayer2, this);
         _stateMachine.RegisterState(GameStates.Player1, player1GameState);
         _stateMachine.RegisterState(GameStates.Player2, player2GameState);
         _stateMachine.MoveTo(GameStates.Player1);
+        uIHandPlayer1.SetActive(true);
+        uIHandPlayer2.SetActive(false);
 
         
         StartCoroutine(OnPostStart());
@@ -187,6 +192,19 @@ public class GameLoop : SingletonMonoBehaviour<GameLoop>
 
     #region Triggers
 
+    public void UIChange()
+    {
+        if (!uIHandPlayer1.gameObject.active)
+        {
+            uIHandPlayer1.SetActive(true);
+            uIHandPlayer2.SetActive(false);
+        }
+        else
+        {
+            uIHandPlayer1.SetActive(false);
+            uIHandPlayer2.SetActive(true);
+        }
+    }
     
     protected virtual void OnInitialized(EventArgs arg)
     {
